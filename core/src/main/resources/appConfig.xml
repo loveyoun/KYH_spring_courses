@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="memberService" class="hello.core.member.MemberServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository"/>
+    </bean>
+    <bean id="memberRepository"
+          class="hello.core.member.MemoryMemberRepository"/>
+    <bean id="orderService" class="hello.core.order.OrderServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository"/>
+        <!-- name = 생성자 필드 이름, ref = Bean 이름 -->
+        <constructor-arg name="rateDiscountPolicy" ref="discountPolicy"/>
+        <!--org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'orderService' defined in class path resource [appConfig.xml]: Unsatisfied dependency expressed through constructor parameter 1: Ambiguous argument values for parameter of type [hello.core.discount.DiscountPolicy] - did you specify the correct bean references as arguments?-->
+        <!--org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'orderService' defined in class path resource [appConfig.xml]: Cannot resolve reference to bean 'discountPolicy' while setting constructor argument; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'discountPolicy' available-->
+    </bean>
+    <bean id="discountPolicy" class="hello.core.discount.RateDiscountPolicy"/>
+</beans>
