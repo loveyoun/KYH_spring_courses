@@ -2,11 +2,14 @@ package hello.jdbc.domain;
 
 import lombok.Data;
 
-@Data
+import java.util.Objects;
+
+@Data  // ToString, EqualsAndHashCode 오버라이드
 public class Member {
 
     private String memberId;
     private int money;
+
 
     public Member() {
     }
@@ -15,5 +18,6 @@ public class Member {
         this.memberId = memberId;
         this.money = money;
     }
+
 
 }

@@ -16,11 +16,11 @@ import static hello.jdbc.connection.ConnectionConst.*;
 public class ConnectionTest {
 
     @Test
-    void driverManager() throws SQLException {
+    void driverManager() throws SQLException {  // SQLException 을 밖으로 throw(s) 하거나 catch 하거나
         Connection con1 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         Connection con2 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        log.info("connection={}, class={}", con1, con1.getClass());
-        log.info("connection={}, class={}", con2, con2.getClass());
+        log.info("connection = {}, class = {}", con1, con1.getClass());
+        log.info("connection = {}, class = {}", con2, con2.getClass());
     }
 
     @Test
@@ -44,11 +44,13 @@ public class ConnectionTest {
         Thread.sleep(1000);
     }
 
+
     private void useDataSource(DataSource dataSource) throws SQLException {
         Connection con1 = dataSource.getConnection();
         Connection con2 = dataSource.getConnection();
-        log.info("connection={}, class={}", con1, con1.getClass());
-        log.info("connection={}, class={}", con2, con2.getClass());
+        log.info("connection = {}, class = {}", con1, con1.getClass());
+        log.info("connection = {}, class = {}", con2, con2.getClass());
     }
+
 
 }

@@ -2,14 +2,13 @@ package hello.jdbc.repository;
 
 import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 class MemberRepositoryV0Test {
@@ -24,7 +23,10 @@ class MemberRepositoryV0Test {
 
         //findById
         Member findMember = repository.findById(member.getMemberId());
-        log.info("findMember={}", findMember);
+        log.info("findMember = {}", findMember);
+        log.info("member != findMember {}", member == findMember);
+        // 다른 인스턴스. false
+
         assertThat(findMember).isEqualTo(member);
 
         //update: money: 10000 -> 20000
@@ -37,4 +39,6 @@ class MemberRepositoryV0Test {
         assertThatThrownBy(() -> repository.findById(member.getMemberId()))
                 .isInstanceOf(NoSuchElementException.class);
     }
+
+
 }

@@ -20,8 +20,9 @@ public class DBConnectionUtil {
             return connection;
         } catch (SQLException e) {
 //            e.printStackTrace();  // CheckException
-            throw new IllegalStateException(e);  // -> RuntimeException
+            throw new IllegalStateException(e);  // RuntimeException
         }
+
     }
 
 
