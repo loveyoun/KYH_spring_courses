@@ -14,7 +14,7 @@ public class DBConnectionUtil {
     public static Connection getConnection() {  // JDBC 표준 인터페이스가 제공하는 Connection
         try {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            log.info("get connection={}, class={}", connection, connection.getClass());
+            log.info("get connection = {}, class = {}", connection, connection.getClass());
             // 객체 정보와 클래스 (타입) 정보
 
             return connection;

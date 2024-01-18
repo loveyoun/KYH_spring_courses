@@ -23,6 +23,11 @@ public class ConnectionTest {
         log.info("connection = {}, class = {}", con2, con2.getClass());
     }
 
+
+    /**
+     * DataSource
+     */
+
     @Test
     void dataSourceDriverManager() throws SQLException {
         //DriverManagerDataSource - 항상 새로운 커넥션을 획득
@@ -37,7 +42,7 @@ public class ConnectionTest {
         dataSource.setJdbcUrl(URL);
         dataSource.setUsername(USERNAME);
         dataSource.setPassword(PASSWORD);
-        dataSource.setMaximumPoolSize(10);
+        dataSource.setMaximumPoolSize(10);  // 기본값
         dataSource.setPoolName("MyPool");
 
         useDataSource(dataSource);

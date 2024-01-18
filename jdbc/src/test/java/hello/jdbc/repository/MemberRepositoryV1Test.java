@@ -28,9 +28,15 @@ class MemberRepositoryV1Test {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(URL);
         dataSource.setUsername(USERNAME);
-        dataSource.setPoolName(PASSWORD);
+        dataSource.setPassword(PASSWORD);
+
         repository = new MemberRepositoryV1(dataSource);
     }
+
+
+    /**
+     * 매번 getConnection() 하는 곳이 DataSource, Pool
+     */
 
     @Test
     void crud() throws SQLException {
@@ -40,11 +46,12 @@ class MemberRepositoryV1Test {
 
         //findById
         Member findMember = repository.findById(member.getMemberId());
-        log.info("findMember={}", findMember);
+        log.info("findMember = {}", findMember);
         assertThat(findMember).isEqualTo(member);
 
         //update: money: 10000 -> 20000
         repository.update(member.getMemberId(), 20000);
+
         Member updatedMember = repository.findById(member.getMemberId());
         assertThat(updatedMember.getMoney()).isEqualTo(20000);
 
@@ -53,10 +60,14 @@ class MemberRepositoryV1Test {
         assertThatThrownBy(() -> repository.findById(member.getMemberId()))
                 .isInstanceOf(NoSuchElementException.class);
 
+
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
     }
+
+
 }

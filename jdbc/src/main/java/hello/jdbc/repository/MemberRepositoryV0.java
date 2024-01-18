@@ -24,19 +24,20 @@ public class MemberRepositoryV0 {
         Connection conn = null;
         PreparedStatement pstmt = null;  // DB 에 날릴 쿼리
 
-        try {  // SQLException (CheckedException)
+        try {
             conn = getConnection();
 
             pstmt = conn.prepareStatement(sql);
 
             // ? 에 데이터를 parameter-binding
-            // Statement: sql 그대로 넣음
+            // Statement: sql 문을 그대로 넣음
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
+
             pstmt.executeUpdate();  // query 가 DB 에서 실행
 
             return member;
-        } catch (SQLException e) {
+        } catch (SQLException e) {  // SQLException (CheckException)
             log.error("db error", e);
             throw e;
         } finally {  // 호출 보장
