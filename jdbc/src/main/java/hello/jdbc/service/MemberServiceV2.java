@@ -20,14 +20,17 @@ public class MemberServiceV2 {
     private final MemberRepositoryV2 memberRepository;
 
 
+    /**
+     * 수동 커밋
+     */
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
         Connection conn = dataSource.getConnection(); // SQLException
 
-        // 트랜잭션 처리 로직
+        // 트랜잭션 처리 Logic
         try {
             conn.setAutoCommit(false);  // 트랜잭션 시작
 
-            busiLogic(conn, fromId, toId, money); // 순수 비즈니스 로직
+            busiLogic(conn, fromId, toId, money); // 순수 비즈니스 Logic
 
             conn.commit();   // 성공시 커밋
         } catch (Exception e) {
@@ -39,13 +42,13 @@ public class MemberServiceV2 {
 
     }
 
-    private void busiLogic(Connection con, String fromId, String toId, int money) throws SQLException {
-        Member fromMember = memberRepository.findById(con, fromId);
-        Member toMember = memberRepository.findById(con, toId);
+    private void busiLogic(Connection conn, String fromId, String toId, int money) throws SQLException {
+        Member fromMember = memberRepository.findById(conn, fromId);
+        Member toMember = memberRepository.findById(conn, toId);
 
-        memberRepository.update(con, fromId, fromMember.getMoney() - money);
+        memberRepository.update(conn, fromId, fromMember.getMoney() - money);
         validation(toMember);
-        memberRepository.update(con, toId, toMember.getMoney() + money);
+        memberRepository.update(conn, toId, toMember.getMoney() + money);
     }
 
     private void validation(Member toMember) {
@@ -55,11 +58,11 @@ public class MemberServiceV2 {
 
     }
 
-    private void release(Connection con) {
-        if (con != null) {
+    private void release(Connection conn) {
+        if (conn != null) {
             try {
-                con.setAutoCommit(true);  // 커넥션 풀 고려
-                con.close();
+                conn.setAutoCommit(true);  // 커넥션 풀 고려
+                conn.close();
             } catch (Exception e) {
                 log.info("error", e);
             }

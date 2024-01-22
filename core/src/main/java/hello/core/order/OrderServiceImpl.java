@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-    //@Autowired
+    // @Autowired
     private final MemberRepository memberRepository;
-    //@Autowired
+    // @Autowired
     private final DiscountPolicy rateDiscountPolicy;
     /* DiscountPolicyConfig 때문에 naming `discountPolicy` 에러
      *
@@ -29,13 +29,13 @@ public class OrderServiceImpl implements OrderService {
      *
      * nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException:
      * No qualifying bean of type 'hello.core.discount.DiscountPolicy' available:
-     * expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+     * expected at least 1 bean which qualifies as autowired candidate. Dependency annotations: {}
      * */
 
 //    1)
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 
-//    2) AppConfig 도입
+//    2) AppConfig + 생성자
 //    private final DiscountPolicy discountPolicy;
 
 //    3) Setter 주입
@@ -55,19 +55,20 @@ public class OrderServiceImpl implements OrderService {
 
 //    @Autowired private final DiscountPolicy rateDiscountPolicy  // == 생성자 파라미터 DiscountPolicy rateDiscountPolicy
 
-//    @Autowired   // 스프링 컨테이너 : new OrderServiceImpl -> new OrderServiceImpl(memberRepository, discountPolicy);
-//    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
-//    /* UnsatisfiedDependencyException -> NoUniqueBeanDefinitionException */
-//    // DiscountPolicy discountPolicy -> DiscountPolicy rateDiscountPolicy
-//    // @Qualifier("mainDiscountPolicy") -> @MainDiscountPolicy
-//
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//        System.out.println("OrderServiceImpl.OrderServiceImpl memberRepository = " + memberRepository);
-//        System.out.println("OrderServiceImpl.OrderServiceImpl discountPolicy = " + discountPolicy);
-//
-//    }   // == @RequiredArgsConstructor. final 붙은 것들로 생성자 만들어줌
+    /*
+    @Autowired   // 스프링 컨테이너 : new OrderServiceImpl -> new OrderServiceImpl(memberRepository, discountPolicy);
+    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    /* UnsatisfiedDependencyException -> NoUniqueBeanDefinitionException
+    // DiscountPolicy discountPolicy -> DiscountPolicy rateDiscountPolicy
+    // @Qualifier("mainDiscountPolicy") -> @MainDiscountPolicy
 
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+        System.out.println("OrderServiceImpl.OrderServiceImpl memberRepository = " + memberRepository);
+        System.out.println("OrderServiceImpl.OrderServiceImpl discountPolicy = " + discountPolicy);
+
+    }   // == @RequiredArgsConstructor. final 붙은 것들로 생성자 만들어줌
+     */
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
@@ -84,5 +85,6 @@ public class OrderServiceImpl implements OrderService {
     public MemberRepository getMemberRepository() {
         return memberRepository;
     }
+
 
 }
