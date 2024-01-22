@@ -42,6 +42,7 @@ class MemberServiceV2Test {
         memberRepository.delete(MEMBER_EX);
     }
 
+
     @Test
     @DisplayName("정상 이체")
     void accountTransfer() throws SQLException {
@@ -80,5 +81,6 @@ class MemberServiceV2Test {
         assertThat(findMemberA.getMoney()).isEqualTo(10000);
         assertThat(findMemberB.getMoney()).isEqualTo(10000);
     }
+
 
 }

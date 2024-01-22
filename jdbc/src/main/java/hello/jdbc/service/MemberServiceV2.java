@@ -1,7 +1,6 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.MemberRepositoryV1;
 import hello.jdbc.repository.MemberRepositoryV2;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,23 +19,27 @@ public class MemberServiceV2 {
     private final DataSource dataSource;
     private final MemberRepositoryV2 memberRepository;
 
+
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
-        Connection con = dataSource.getConnection();
+        Connection conn = dataSource.getConnection(); // SQLException
+
+        // 트랜잭션 처리 로직
         try {
-            con.setAutoCommit(false);//트랜잭션 시작
-            //비즈니스 로직
-            bizLogic(con, fromId, toId, money);
-            con.commit(); //성공시 커밋
+            conn.setAutoCommit(false);  // 트랜잭션 시작
+
+            busiLogic(conn, fromId, toId, money); // 순수 비즈니스 로직
+
+            conn.commit();   // 성공시 커밋
         } catch (Exception e) {
-            con.rollback(); //실패시 롤백
-            throw new IllegalStateException(e);
+            conn.rollback(); // 실패시 롤백. SQLException
+            throw new IllegalStateException(e); // throw e;
         } finally {
-            release(con);
+            release(conn);
         }
 
     }
 
-    private void bizLogic(Connection con, String fromId, String toId, int money) throws SQLException {
+    private void busiLogic(Connection con, String fromId, String toId, int money) throws SQLException {
         Member fromMember = memberRepository.findById(con, fromId);
         Member toMember = memberRepository.findById(con, toId);
 
@@ -49,16 +52,21 @@ public class MemberServiceV2 {
         if (toMember.getMemberId().equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");
         }
+
     }
 
     private void release(Connection con) {
         if (con != null) {
             try {
-                con.setAutoCommit(true); //커넥션 풀 고려
+                con.setAutoCommit(true);  // 커넥션 풀 고려
                 con.close();
             } catch (Exception e) {
                 log.info("error", e);
             }
+
         }
+
     }
+
+
 }
