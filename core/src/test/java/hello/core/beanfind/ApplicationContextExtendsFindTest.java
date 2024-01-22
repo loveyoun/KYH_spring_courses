@@ -26,7 +26,6 @@ public class ApplicationContextExtendsFindTest {
                 () -> ac.getBean(DiscountPolicy.class));
     }
 
-
     @Test
     @DisplayName("부모 타입으로 조회시, 자식이 둘 이상 있으면 빈 이름 지정")
     void findBeanByParentTypeBeanName() {
@@ -35,7 +34,6 @@ public class ApplicationContextExtendsFindTest {
         Assertions.assertThat(discountPolicy).isInstanceOf(RateDiscountPolicy.class);
     }
 
-
     @Test
     @DisplayName("부모 타입으로 조회시, 자식이 둘 이상 있으면 빈 타입으로 조회")
     void findBeanBySubType() {
@@ -43,7 +41,6 @@ public class ApplicationContextExtendsFindTest {
 
         Assertions.assertThat(discountPolicy).isInstanceOf(RateDiscountPolicy.class);
     }
-
 
     @Test
     @DisplayName("부모 타입으로 모두 조회")
@@ -56,12 +53,13 @@ public class ApplicationContextExtendsFindTest {
             System.out.println("key = " + key + ", value = " + beansOfType.get(key));
     }
 
-
     @Test
     @DisplayName("부모 타입으로 모두 조회 _ Object Type")
     void findAllBeanByObjectType() {
         Map<String, Object> beansOfType = ac.getBeansOfType(Object.class);
-        /* new AnnotationConfigApplicationContext(DiscountPolicyConfig.class);
+
+        /*
+         * new AnnotationConfigApplicationContext(DiscountPolicyConfig.class);
          *
          * IllegalStateException:
          * No Scope registered for scope name 'request'
@@ -80,14 +78,15 @@ public class ApplicationContextExtendsFindTest {
     }
 
 
-    //@Configuration
-    /* IllegalStateException: Failed to load ApplicationContext
-     * Caused by: org.springframework.beans.factory.support.BeanDefinitionOverrideException:
+    /*
+     * IllegalStateException: Failed to load ApplicationContext
+     * BeanDefinitionOverrideException:
      * Invalid bean definition with name 'rateDiscountPolicy' defined in class path resource [hello/core/beanfind/ApplicationContextExtendsFindTest$ExtendConfig.class]:
      * Cannot register bean definition defined in class path resource [hello/core/beanfind/ApplicationContextExtendsFindTest$ExtendConfig.class]]
      * for bean 'rateDiscountPolicy':
      * There is already defined in class path resource [hello/core/AppConfig.class]] bound.
-     * */
+     */
+    // @Configuration
     static class ExtendConfig {
 
         @Bean
@@ -101,5 +100,6 @@ public class ApplicationContextExtendsFindTest {
         }
 
     }
+
 
 }

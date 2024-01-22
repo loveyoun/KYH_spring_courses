@@ -54,7 +54,7 @@ public class AppConfig {
     @Bean
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
-        return new OrderServiceImpl(memberRepository(), discountPolicy());   //discountPolicy());
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
 //        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
 
 //        return null;      /* BeanNotOfRequiredTypeException : OrderService -> null */
@@ -66,10 +66,5 @@ public class AppConfig {
         return new RateDiscountPolicy();
     }
 
-//    /* DiscountPolicyConfig.class 와 중복 */
-//    @Bean
-//    public DiscountPolicy rateDiscountPolicy() {
-//        return new RateDiscountPolicy();
-//    }
 
 }

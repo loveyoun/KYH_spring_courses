@@ -10,15 +10,15 @@ public class ApplicationContextInfoTest {
 
     /**
      * Assumption : For every @Test,
-     * all codes are re-run or
-     * Spring is re-run
+     * all codes re-run or
+     * Spring re-run
      **/
     AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
 
     @Test
-    @DisplayName("모든 빈 출력하기")
-    void findAllBean() {   // BeanName -> getBean
+    @DisplayName("모든 빈 이름으로 조회해서 출력하기")
+    void findAllBean() {  // BeanName -> getBean()
         System.out.println("<ApplicationContextInfoTest.findAllBean>");
 
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
@@ -32,10 +32,9 @@ public class ApplicationContextInfoTest {
 
     }
 
-
     @Test
     @DisplayName("어플리케이션 빈 출력하기")
-    void findApplicationBean() {   // BeanName -> BeanDef -> BeanRole -> getBean
+    void findApplicationBean() {  // BeanName -> BeanDef -> BeanRole -> getBean()
         System.out.println("<ApplicationContextInfoTest.findApplicationBean>");
 
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
@@ -50,8 +49,10 @@ public class ApplicationContextInfoTest {
 
                 System.out.println("name = " + beanDefinitionName + " object = " + bean);
             }
+
         }
 
     }
+
 
 }

@@ -26,9 +26,8 @@ public class ApplicationContextBasicFindTest {
         Assertions.assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
     }
 
-
     @Test
-    @DisplayName("이름 없이 타입으로만 조회")
+    @DisplayName("이름 없이 타입으로 조회")
     void findBeanByType() {
         System.out.println("<ApplicationContextBasicFindTest.findBeanByType>");
 
@@ -39,9 +38,8 @@ public class ApplicationContextBasicFindTest {
         Assertions.assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
     }
 
-
     @Test
-    @DisplayName("구체 타입으로 조회 but not desirable")
+    @DisplayName("구현 타입으로 조회 but not desirable")
     void findBeanByInst() {
         System.out.println("<ApplicationContextBasicFindTest.findBeanByInst>");
 
@@ -50,9 +48,8 @@ public class ApplicationContextBasicFindTest {
         Assertions.assertThat(memberService).isInstanceOf(MemberServiceImpl.class);
     }
 
-
     @Test
-    @DisplayName("빈 이름으로 조회X")
+    @DisplayName("빈 이름으로 조회 X")
     void findBeanByInstX() {
         System.out.println("<ApplicationContextBasicFindTest.findBeanByInstX>");
 
@@ -60,5 +57,6 @@ public class ApplicationContextBasicFindTest {
         org.junit.jupiter.api.Assertions.assertThrows(NoSuchBeanDefinitionException.class,
                 () -> ac.getBean("xxxxx", MemberService.class));
     }
+
 
 }
