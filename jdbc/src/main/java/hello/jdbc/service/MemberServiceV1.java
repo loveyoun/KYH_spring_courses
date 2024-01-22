@@ -12,21 +12,22 @@ public class MemberServiceV1 {
     private final MemberRepositoryV1 memberRepository;
 
 
+    /**
+     * 자동 커밋
+     */
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
-        // 트랜잭션 시작
         Member fromMember = memberRepository.findById(fromId);
         Member toMember = memberRepository.findById(toId);
 
+        // 각 query 마다 트랜잭션 시작, 커밋/롤백, 트랜잭션 종료
         memberRepository.update(fromId, fromMember.getMoney() - money);
         validation(toMember);
         memberRepository.update(toId, toMember.getMoney() + money);
-        // 커밋, 롤백
-        // 트랜잭션 종료
     }
 
     private void validation(Member toMember) {
         if (toMember.getMemberId().equals("ex")) {
-            throw new IllegalStateException("이체중 예외 발생");
+            throw new IllegalStateException("이체 중 예외 발생");
         }
 
     }

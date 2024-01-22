@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
 
-    // 1) OCP 원칙, DIP 원칙 위반
+    // 1) OCP, DIP 위반
 //    private final MemberRepository memberRepository = new MemoryMemberRepository();
 
 
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-    // SRP : 프론트 요청(DTO) -> 데이터 넘겨주기만(처리는 다른 모듈들) -> 최종 결과 데이터 리턴
+    // SRP : 프론트 요청 (DTO) -> 데이터 넘겨주기만 (처리는 다른 모듈) -> 최종 결과 데이터 리턴
     @Override
     public void join(Member member) {
         memberRepository.save(member);
@@ -45,9 +45,11 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findById(memberId);
     }
 
+
     // 테스트
     public MemberRepository getMemberRepository() {
         return memberRepository;
     }
+
 
 }

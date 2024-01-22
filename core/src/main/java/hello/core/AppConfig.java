@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-@Configuration   // @ComponentScan 대상. Singleton 을 보장한다.
-public class AppConfig {
+@Configuration   // @ComponentScan 대상. Singleton 보장.
+public class AppConfig {  // 생성자를 통해 객체 주입
 
 //    @Autowired DiscountPolicyConfig discountPolicyConfig;   // NoSuchBeanDefinitionException
 
@@ -35,17 +35,19 @@ public class AppConfig {
     //@Configuration 없을 때 대신 스프링의 의존관계 자동 주입 사용할 수 있다.
 //    @Autowired MemberRepository memberRepository;
 
+
+    /* XmlAppContext 사용 시 private 이면 안된다 */
+
     @Bean
-    // 생성자를 통해 객체 주입
     public MemberService memberService() {
         System.out.println("call AppConfig.memberService");
 
-        // 메소드명을 통해 역할 드러남. 인자 중복 제거.
+        // 메소드명을 통해 역할 드러냄. 인자 중복 제거.
         return new MemberServiceImpl(memberRepository());
 //        return null;
     }
 
-    @Bean /* XmlAppContext 사용 시 private 이면 안된다 */
+    @Bean
     public MemberRepository memberRepository() {
         System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
@@ -65,6 +67,7 @@ public class AppConfig {
 //        return new FixDiscountPolicy();
         return new RateDiscountPolicy();
     }
+
 
 
 }

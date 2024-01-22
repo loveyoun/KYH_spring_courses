@@ -31,6 +31,7 @@ class MemberServiceV2Test {
     @BeforeEach
     void before() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+
         memberRepository = new MemberRepositoryV2(dataSource);
         memberService = new MemberServiceV2(dataSource, memberRepository);
     }

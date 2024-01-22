@@ -88,6 +88,7 @@ public class MemberRepositoryV2 {
     /**
      * findById
      * ManualCommit ver.
+     * 외부에서 Conn 주입.
      */
     public Member findById(Connection conn, String memberId) throws SQLException {
         String sql = "select * from member where member_id = ?";
@@ -157,7 +158,7 @@ public class MemberRepositoryV2 {
             log.error("db error", e);
             throw e;
         } finally {
-            //connection은 여기서 닫지 않는다.
+            // connection 은 여기서 닫지 않는다.
             JdbcUtils.closeStatement(pstmt);
         }
 

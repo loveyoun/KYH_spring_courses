@@ -9,10 +9,9 @@ import org.junit.jupiter.api.Test;
 
 public class OrderServiceTest {
 
-    AppConfig appConfig = new AppConfig();   // == @BeforeEach
-    MemberService memberService = appConfig.memberService();   //= new MemberServiceImpl();
-    OrderService orderService = appConfig.orderService();   //= new OrderServiceImpl();
-
+    AppConfig appConfig = new AppConfig();  // == @BeforeEach
+    MemberService memberService = appConfig.memberService();  // = new MemberServiceImpl();
+    OrderService orderService = appConfig.orderService();  // = new OrderServiceImpl();
 
 //    @BeforeEach
 //    public void beforeEach() {
@@ -65,5 +64,6 @@ public class OrderServiceTest {
 //        Order order = orderServiceImpl.createOrder(memberId, "itemA", 10000);
 //        System.out.println("order = " + order);
 //    }
+
 
 }
