@@ -13,22 +13,18 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-//@Configuration   // 설정 정보 긴 한데... Test 를 위해 AutoAppConfig 와 AppConfig 를 위해
-//@ComponentScan   // 이건 굳이 안 넣어도 돼. 메인 설정 정보에서 시작하면 됨. 그리고 @SpringBootApplication 안에.
 public class DiscountPolicyConfig {
 
-//    @Autowired
-//    AppConfig appConfig;  // NoSuchBeanDefinitionException
+//    @Autowired AppConfig appConfig;  // NoSuchBeanDefinitionException. 이 클래스가 먼저 스캔되면.
 
 
-    @Bean("rateDiscountPolicy")
+    @Bean("rateDiscountPolicy")  // key = discountPolicy x, rateDiscountPolicy
     public DiscountPolicy discountPolicy() {
-        RateDiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();   // 수동 등록이, @Component 보다 우선.
+        RateDiscountPolicy rateDiscountPolicy = new RateDiscountPolicy();  // 수동 등록이, @Component 보다 우선.
         System.out.println("call DiscountPolicyConfig.rateDiscountPolicy = " + rateDiscountPolicy);
 
         return rateDiscountPolicy;
-
-//        return appConfig.rateDiscountPolicy();
+//        return appConfig.rateDiscountPolicy();  // 싱글톤 덕분에.
     }
 
     @Bean

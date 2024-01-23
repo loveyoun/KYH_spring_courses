@@ -35,7 +35,10 @@ public class ComponentFilterAppConfigTest {
                     //@Filter(type = FilterType.ASSIGNABLE_TYPE, classes = BeanB.class)
             }
     )
+
+
     static class ComponentFilterAppConfig {
     }
+
 
 }

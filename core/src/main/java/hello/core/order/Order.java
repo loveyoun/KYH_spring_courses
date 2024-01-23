@@ -3,7 +3,7 @@ package hello.core.order;
 
 /**
  * 주문 결과
- * **/
+ */
 
 public class Order {
 
@@ -19,10 +19,6 @@ public class Order {
         this.discountPrice = discountPrice;
     }
 
-
-    public int calculatePrice() {
-        return itemPrice - discountPrice;
-    }
 
     public Long getMemberId() {
         return memberId;
@@ -56,6 +52,10 @@ public class Order {
         this.discountPrice = discountPrice;
     }
 
+
+    public int calculatePrice() {
+        return itemPrice - discountPrice;
+    }
 
     @Override
     public String toString() {

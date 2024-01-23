@@ -30,6 +30,7 @@ public class AllBeansTest {
         Assertions.assertThat(discountPrice).isEqualTo(2000);
     }
 
+
     // == @RequiredArgsConstructor
     /* @Component : NoSuchBeanDefinitionException. @ComponentScan 은 그 package 하위만... */
     static class DiscountService {
@@ -54,5 +55,6 @@ public class AllBeansTest {
         }
 
     }
+
 
 }

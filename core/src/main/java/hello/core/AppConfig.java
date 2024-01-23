@@ -14,35 +14,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration   // @ComponentScan 대상. Singleton 보장.
 public class AppConfig {  // 생성자를 통해 객체 주입
-
-//    @Autowired DiscountPolicyConfig discountPolicyConfig;   // NoSuchBeanDefinitionException
-
-    // @Bean memberService() -> new MemoryMemberRepository();
-    // @Bean orderService() -> new MemoryMemberRepository();
-    // 싱글톤이 깨질까?
-
-    // call AppConfig.memberService
-    // call AppConfig.memberRepository
-    // call AppConfig.memberRepository
-    // call AppConfig.orderService
-    // call AppConfig.memberRepository
-    //
-    // call AppConfig.memberService
-    // call AppConfig.memberRepository
-    // call AppConfig.orderService
-
-
-    //@Configuration 없을 때 대신 스프링의 의존관계 자동 주입 사용할 수 있다.
-//    @Autowired MemberRepository memberRepository;
-
-
+    
     /* XmlAppContext 사용 시 private 이면 안된다 */
 
     @Bean
     public MemberService memberService() {
         System.out.println("call AppConfig.memberService");
 
-        // 메소드명을 통해 역할 드러냄. 인자 중복 제거.
+        // 메소드명으로 역할 드러냄 + 인자 중복 제거.
         return new MemberServiceImpl(memberRepository());
 //        return null;
     }
@@ -56,18 +35,17 @@ public class AppConfig {  // 생성자를 통해 객체 주입
     @Bean
     public OrderService orderService() {
         System.out.println("call AppConfig.orderService");
-        return new OrderServiceImpl(memberRepository(), discountPolicy());
 //        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+        return new OrderServiceImpl(memberRepository(), discountPolicy());
 
 //        return null;      /* BeanNotOfRequiredTypeException : OrderService -> null */
     }
 
     @Bean
-    public DiscountPolicy discountPolicy() {   /* DiscountPolicyConfig 랑 중복 등록됨 -> excludeFilters */
+    public DiscountPolicy discountPolicy() {  // 수동 등록하는 DiscountPolicyConfig 랑 중복 등록됨.
 //        return new FixDiscountPolicy();
         return new RateDiscountPolicy();
     }
-
 
 
 }

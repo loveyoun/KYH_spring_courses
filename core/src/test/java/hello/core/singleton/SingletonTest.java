@@ -16,7 +16,7 @@ public class SingletonTest {
     void pureContainer() {
         AppConfig appConfig = new AppConfig();
 
-        // 호출할 때마다 객체를 생성(2개씩 생성)
+        // 호출할 때마다 객체를 생성
         MemberService memberService1 = appConfig.memberService();
         MemberService memberService2 = appConfig.memberService();
 
@@ -37,10 +37,10 @@ public class SingletonTest {
         System.out.println("singletonService1 = " + singletonService1);
         System.out.println("singletonService2 = " + singletonService2);
 
-        // singletonService1 == singletonService2
+        // memberService1 == memberService2
         assertThat(singletonService1).isSameAs(singletonService2);
-        // SameAs : ==. 인스턴스 참조 비교.
-        // EqualTo : 오버라이드된 .equals() 비교
+        // SameAs : ==. 인스턴스 참조값 비교.
+        // EqualTo : 오버라이드된 equals() 비교
     }
 
     @Test
@@ -57,5 +57,6 @@ public class SingletonTest {
         // memberService1 == memberService2
         assertThat(memberService1).isSameAs(memberService2);
     }
+
 
 }

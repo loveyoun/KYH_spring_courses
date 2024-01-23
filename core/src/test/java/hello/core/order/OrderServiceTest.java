@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class OrderServiceTest {
 
     AppConfig appConfig = new AppConfig();  // == @BeforeEach
-    MemberService memberService = appConfig.memberService();  // = new MemberServiceImpl();
+    MemberService memberService = appConfig.memberService(); // = new MemberServiceImpl();
     OrderService orderService = appConfig.orderService();  // = new OrderServiceImpl();
 
 //    @BeforeEach
@@ -30,6 +30,7 @@ public class OrderServiceTest {
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
+
         memberService.join(member);
 
         Order order = orderService.createOrder(memberId, "itemA", 10000);
@@ -47,7 +48,7 @@ public class OrderServiceTest {
 
 //    @Test
 //    void fieldInjectionTest(){
-//        // Field Injection 시, 순수 Java Test 시 중간 변경이 불가능하다. 일일이 주입해주어야해서. 어차피 Setter 주입 해주어야 한다.
+//        // Field Injection 시, 순수 Java Test 시 중간 변경이 불가능. 일일이 주입해야해서. 어차피 Setter 주입 해야 한다.
 //
 //        MemberServiceImpl memberServiceImpl = new MemberServiceImpl();
 //        memberServiceImpl.setMemberRepository(new MemoryMemberRepository());

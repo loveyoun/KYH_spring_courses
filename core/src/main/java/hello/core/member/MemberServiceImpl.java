@@ -9,32 +9,35 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService {  // 서비스는 클라이언트.
 
-    // 2) Field 주입 : Not-recommended
-//    @Autowired   // ac.getBean(MemberRepository.class) 처럼 작동한다.
+    /*
+    1) OCP, DIP 위반
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+    2) Field 주입 : Not-recommended
+    @Autowired   // ac.getBean(MemberRepository.class) 처럼 작동.
+     */
     private final MemberRepository memberRepository;
 
+    /*
+    3) Setter : Not-recommended
+    @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+     */
 
-    // 1) OCP, DIP 위반
-//    private final MemberRepository memberRepository = new MemoryMemberRepository();
-
-
-    // 3) Setter : Not-recommended
-//    @Autowired
-//    public void setMemberRepository(MemberRepository memberRepository) {
-//        this.memberRepository = memberRepository;
-//    }
-
-
-    // 4) 생성자 주입
-//    @Autowired   // 생략 가능
+    /*
+    4) 생성자 주입
+    @Autowired  // 생성자 하나면 생략 가능
+     */
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
 
-    // SRP : 프론트 요청 (DTO) -> 데이터 넘겨주기만 (처리는 다른 모듈) -> 최종 결과 데이터 리턴
+    // SRP : 프론트 요청 (DTO) -> 데이터 넘겨주기만 -> (처리는 다른 모듈) -> 최종 결과 데이터 리턴
     @Override
     public void join(Member member) {
         memberRepository.save(member);

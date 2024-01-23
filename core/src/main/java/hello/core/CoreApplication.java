@@ -16,4 +16,5 @@ public class CoreApplication {
 //        System.out.println("웹 전용 스프링 컨테이너 확인 = " + ac);
     }
 
+
 }

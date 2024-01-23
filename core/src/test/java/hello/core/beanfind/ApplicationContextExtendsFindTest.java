@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ApplicationContextExtendsFindTest {
 
-    AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ExtendConfig.class);   //DiscountPolicyConfig.class);
+    AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ExtendConfig.class);  // (DiscountPolicyConfig.class);
 
 
     @Test
