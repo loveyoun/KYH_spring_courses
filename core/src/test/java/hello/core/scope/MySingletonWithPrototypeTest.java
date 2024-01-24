@@ -28,7 +28,8 @@ public class MySingletonWithPrototypeTest {
     @Test
     void singletonClientUsePrototype() {
         AnnotationConfigApplicationContext ac =
-                new AnnotationConfigApplicationContext(ClientBean.class, PrototypeBean.class);   // @ComponentScan 대상이 되는 효과. 자동 빈 등록
+                new AnnotationConfigApplicationContext(ClientBean.class, PrototypeBean.class);
+        // @ComponentScan 대상이 되는 효과. 자동 빈 등록
 
         ObjectProvider<PrototypeBean> prototypeBeanProvider = ac.getBeanProvider(PrototypeBean.class);
 
@@ -59,35 +60,41 @@ public class MySingletonWithPrototypeTest {
 
 
     static class ClientBean {
-//        private final Provider<PrototypeBean> prototypeBeanProvider;   // ObjectProvider : 스프링이 자동 주입
+        private PrototypeBean prototypeBean;   // 생성 시점에 주입 때만 생성
 
-//      @Autowired ApplicationContext applicationContext;   // 무식한 방법
-
+//        @Autowired ApplicationContext ac;   // 무식한 방법
+//
 //        @Autowired
-//        public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {   //(PrototypeBean prototypeBean) {
-////            this.prototypeBean = prototypeBean;
+//        public ClientBean(PrototypeBean prototypeBean) {
+//            this.prototypeBean = prototypeBean;
+//        }
+
+//        private final Provider<PrototypeBean> prototypeBeanProvider;  // ObjectProvider : 스프링이 자동 주입
+//
+//        @Autowired
+//        public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {
 //            this.prototypeBeanProvider = prototypeBeanProvider;   // <T> 반드시
 //        }
 
-        private PrototypeBean prototypeBean;   // 생성 시점에 주입 때만 생성
         public void setPrototypeBean(PrototypeBean prototypeBean) {
             this.prototypeBean = prototypeBean;
             System.out.println("ClientBean.setPrototypeBean = " + prototypeBean);
-            System.out.println("ClientBean.setPrototypeBean = " + this.prototypeBean);
         }
+
 
         public int logic() {
 //            System.out.println("prototypeBean 생성");   // getObject() 후 init()
 
-//            PrototypeBean prototypeBean = applicationContext.getBean(PrototypeBean.class);   // 무식한 방법. 호출(요청) 시마다 생성
-//            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();   // ObjectProvider<>
-//            PrototypeBean prototypeBean = prototypeBeanProvider.get();   // Provider<>
+//            PrototypeBean prototypeBean = ac.getBean(PrototypeBean.class);   // 무식한 방법. 호출(요청) 시마다 생성
+//            PrototypeBean prototypeBean = prototypeBeanProvider.getObject(); // ObjectProvider<>
+//            PrototypeBean prototypeBean = prototypeBeanProvider.get();       // Provider<>
 
             System.out.println("logic() = " + this.prototypeBean);
+
             prototypeBean.addCount();
-            int count = prototypeBean.getCount();
-            return count;
+            return prototypeBean.getCount();
         }
+
     }
 
     @Scope("prototype")
@@ -112,5 +119,6 @@ public class MySingletonWithPrototypeTest {
             System.out.println("PrototypeBean.destroy");
         }
     }
+
 
 }

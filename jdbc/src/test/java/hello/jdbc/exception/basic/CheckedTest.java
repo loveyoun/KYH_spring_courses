@@ -21,6 +21,7 @@ public class CheckedTest {
                 .isInstanceOf(MyCheckedException.class);
     }
 
+
     /**
      * Exception을 상속받은 예외는 체크 예외가 된다.
      */
@@ -64,5 +65,6 @@ public class CheckedTest {
             throw new MyCheckedException("ex");
         }
     }
+
 
 }

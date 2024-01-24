@@ -1,10 +1,9 @@
 package hello.jdbc.exception.basic;
 
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 public class UncheckedTest {
@@ -21,6 +20,7 @@ public class UncheckedTest {
         assertThatThrownBy(() -> service.callThrow())
                 .isInstanceOf(MyUncheckedException.class);
     }
+
 
     /**
      * RuntimeException을 상속받은 예외는 언체크 예외가 된다.
@@ -65,5 +65,6 @@ public class UncheckedTest {
             throw new MyUncheckedException("ex");
         }
     }
+
 
 }

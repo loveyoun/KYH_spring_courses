@@ -11,7 +11,7 @@ import javax.annotation.PreDestroy;
 public class PrototypeTest {
 
     @Test
-    void prototypeBeanFind(){
+    void prototypeBeanFind() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(PrototypeBean.class);
 
         System.out.println("find prototypeBean1");
@@ -30,17 +30,19 @@ public class PrototypeTest {
         ac.close();   // @PreDestroy() 호출 안 됨
     }
 
+
     @Scope("prototype")
-    static class PrototypeBean{
+    static class PrototypeBean {
         @PostConstruct
-        public void init(){
+        public void init() {
             System.out.println("PrototypeBean.init");
         }
 
         @PreDestroy
-        public void close(){
+        public void close() {
             System.out.println("PrototypeBean.close");
         }
     }
+
 
 }

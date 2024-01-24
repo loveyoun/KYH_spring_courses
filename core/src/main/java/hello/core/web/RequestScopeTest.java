@@ -25,7 +25,7 @@ public class RequestScopeTest {
         logService.logic("testId");
     }
 
-    //== @RequiredArgsConstructor
+    
     static class LogService {
 
         private final ObjectProvider<MyLogger> myLoggerProvider;   // in the Spring Container as Spring Bean
@@ -44,5 +44,6 @@ public class RequestScopeTest {
         }
 
     }
+
 
 }

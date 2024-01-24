@@ -10,17 +10,19 @@ import org.springframework.context.annotation.FilterType;
         excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class))
 // 메인 설정 정보
 public class AutoAppConfig {
-
-    // 수동 등록 안 함
-    // @Bean 으로 설정 정보 명시, 의존관계도 명시 안 함
+    // @ComponentScan 하면, 의존관계 주입이 자동으로 안되기 때문에, 각 생성자에 @Autowired 를 해줘야 한다.
 
     /*
-    // @Configuration 없을 때 대신 스프링의 의존관계 자동 주입 사용할 수 있다.
-    // 스프링 빈에 있는 거 가져오기.
+    수동 등록 추가로 하면, NoUniqueBeanDefinitionException
+
+    // 스프링 빈에 있는 거 가져와서 스프링의 의존관계 자동 주입 사용할 수 있다.
     @Autowired MemberRepository memberRepository;
     @Autowired DiscountPolicy discountPolicy;
-
-    // 수동 등록 추가로 하면, NoUniqueBeanDefinitionException
+    @Bean
+    OrderService orderService() {
+        return new OrderServiceImpl(memberRepository, discountPolicy);
+    }
+    // or
     @Bean
     OrderService orderService(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         return new OrderServiceImpl(memberRepository, discountPolicy);

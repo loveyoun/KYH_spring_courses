@@ -15,7 +15,7 @@ public class ConfigurationSingletonTest {
     void configurationTest() {   // Singleton 이 깨지나 테스트
         ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        MemberServiceImpl memberService = ac.getBean(MemberServiceImpl.class);   // 원래 구체클래스로 빼는 건 bad
+        MemberServiceImpl memberService = ac.getBean(MemberServiceImpl.class);   // 원래 구체 클래스로 빼는 건 bad
         OrderServiceImpl orderService = ac.getBean(OrderServiceImpl.class);
         MemberRepository memberRepository = ac.getBean("memberRepository", MemberRepository.class);
 

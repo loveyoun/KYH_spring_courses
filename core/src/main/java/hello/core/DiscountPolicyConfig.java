@@ -15,8 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class DiscountPolicyConfig {
 
-//    @Autowired AppConfig appConfig;  // NoSuchBeanDefinitionException. 이 클래스가 먼저 스캔되면.
-
+    // @Autowired AppConfig appConfig;
+    // NoSuchBeanDefinitionException.
+    // @ComponentScan 이면 의존관계 자동 주입 가능한데, 이건 먼저 등록되지 않을 수 있으니까.
 
     @Bean("rateDiscountPolicy")  // key = discountPolicy x, rateDiscountPolicy
     public DiscountPolicy discountPolicy() {
@@ -24,7 +25,8 @@ public class DiscountPolicyConfig {
         System.out.println("call DiscountPolicyConfig.rateDiscountPolicy = " + rateDiscountPolicy);
 
         return rateDiscountPolicy;
-//        return appConfig.rateDiscountPolicy();  // 싱글톤 덕분에.
+//        return appConfig.rateDiscountPolicy();  // 싱글톤 덕분에. 근데 수동 등록을 뭐더러 2번이나 쓰니?
+//        return AppConfig.discountPolicy();  // static -> unreachable statement
     }
 
     @Bean

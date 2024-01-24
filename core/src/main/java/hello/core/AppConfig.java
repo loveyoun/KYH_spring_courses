@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration   // @ComponentScan 대상. Singleton 보장.
 public class AppConfig {  // 생성자를 통해 객체 주입
-    
-    /* XmlAppContext 사용 시 private 이면 안된다 */
+
+    /* XmlAppContext 사용 시 private 이면 안 된다 */
 
     @Bean
     public MemberService memberService() {
@@ -38,7 +38,7 @@ public class AppConfig {  // 생성자를 통해 객체 주입
 //        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
         return new OrderServiceImpl(memberRepository(), discountPolicy());
 
-//        return null;      /* BeanNotOfRequiredTypeException : OrderService -> null */
+//        return null;  // BeanNotOfRequiredTypeException : OrderService -> null
     }
 
     @Bean

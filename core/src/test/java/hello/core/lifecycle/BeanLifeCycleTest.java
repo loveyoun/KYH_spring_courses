@@ -19,7 +19,7 @@ public class BeanLifeCycleTest {
 
     @Configuration
     static class LifeCycleConfig {
-        @Bean   //(initMethod = "init", destroyMethod = "close")   // ref : AutoCloseable
+        @Bean   //(initMethod = "init", destroyMethod = "close")   // ref: AutoCloseable
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
 
@@ -28,5 +28,6 @@ public class BeanLifeCycleTest {
             return networkClient;
         }
     }
+
 
 }

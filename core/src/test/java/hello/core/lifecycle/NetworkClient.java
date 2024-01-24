@@ -10,10 +10,11 @@ public class NetworkClient {   //implements InitializingBean, DisposableBean {
     public NetworkClient() {
         System.out.println("생성자 호출, url = " + url);
 
-        // 생성자 호출 전. 초기화 안 함.
+        // 생성자 호출 후에 초기화.
 //        connect();
 //        call("초기화 연결 메시지");
     }
+
 
     public void setUrl(String url) {
         this.url = url;
@@ -35,7 +36,7 @@ public class NetworkClient {   //implements InitializingBean, DisposableBean {
     }
 
 
-//    @Override afterPropertiesSet() throws Exception {
+    //@Override afterPropertiesSet() throws Exception {
     @PostConstruct
     public void init() {
         System.out.println("NetworkClient.init");
@@ -43,11 +44,12 @@ public class NetworkClient {   //implements InitializingBean, DisposableBean {
         call("초기화 연결 메시지");
     }
 
-//    @Override destroy() throws Exception {
+    //@Override destroy() throws Exception {
     @PreDestroy
     public void close() {
         System.out.println("NetworkClient.close");
         disconnect();
     }
+
 
 }

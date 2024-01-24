@@ -16,9 +16,11 @@ public class MyLogger {
     private String requestURL;
 //    private AnnotationConfigApplicationContext ac;
 
+
     public void setRequestURL(String requestURL) {
         this.requestURL = requestURL;
     }
+
 
     public void log(String message) {
         System.out.println("[" + uuid + "]" + "[" + requestURL + "] " + message);
@@ -36,5 +38,6 @@ public class MyLogger {
     public void close() {
         System.out.println("[" + uuid + "] request scope bean closed : " + this);
     }
+
 
 }

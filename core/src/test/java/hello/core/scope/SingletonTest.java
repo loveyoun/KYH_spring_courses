@@ -23,8 +23,8 @@ public class SingletonTest {
         Assertions.assertThat(singletonBean1).isSameAs(singletonBean2);
 
         ac.close();   // @PreDestroy() 호출
-
     }
+
 
     @Scope("singleton")
     static class SingletonBean{
@@ -38,5 +38,6 @@ public class SingletonTest {
             System.out.println("SingletonBean.close");
         }
     }
+
 
 }

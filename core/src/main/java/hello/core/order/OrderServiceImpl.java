@@ -36,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
 
     4) Setter 주입
     // field 주입과 다르게, field 에 final 해줄 수 없다.
-    // MemberRepository 를 스프링 빈으로 생성 미리 안 해도 주입이 된다. new() 해도 된다는 뜻. 생성자 주입과 비슷.
+    // MemberRepository 를 스프링 빈으로 생성 미리 안 해도 주입이 된다. new () -> DI.
     @Autowired
     public void setMemberRepository(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
@@ -50,8 +50,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired private final DiscountPolicy rateDiscountPolicy  // == 생성자 파라미터 DiscountPolicy rateDiscountPolicy
 
-    5) 생성자 주입. == @RequiredArgsConstructor. final 붙은 것들로 생성자 만듦.
-    @Autowired   // 스프링 컨테이너 : OrderServiceImpl 생성 -> new OrderServiceImpl(memberRepository, discountPolicy);
+    5) 생성자 주입. == @RequiredArgsConstructor: final 붙은 것들로 생성자 만듦.
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
     // UnsatisfiedDependencyException -> NoUniqueBeanDefinitionException
     // 1. DiscountPolicy discountPolicy -> DiscountPolicy rateDiscountPolicy
@@ -62,7 +62,6 @@ public class OrderServiceImpl implements OrderService {
         this.discountPolicy = discountPolicy;
         System.out.println("OrderServiceImpl.OrderServiceImpl memberRepository = " + memberRepository);
         System.out.println("OrderServiceImpl.OrderServiceImpl discountPolicy = " + discountPolicy);
-
     }
      */
 

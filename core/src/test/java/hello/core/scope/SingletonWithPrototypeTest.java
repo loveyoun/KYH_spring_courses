@@ -28,7 +28,8 @@ public class SingletonWithPrototypeTest {
     @Test
     void singletonClientUsePrototype() {
         AnnotationConfigApplicationContext ac =
-                new AnnotationConfigApplicationContext(ClientBean.class, PrototypeBean.class);   // @ComponentScan 대상이 되는 효과. 자동 빈 등록
+                new AnnotationConfigApplicationContext(ClientBean.class, PrototypeBean.class);
+        // @ComponentScan 대상이 되는 효과. 자동 빈 등록
 
         ObjectProvider<PrototypeBean> prototypeBeanProvider = ac.getBeanProvider(PrototypeBean.class);
 
@@ -40,7 +41,7 @@ public class SingletonWithPrototypeTest {
 
         assertThat(clientBean1).isSameAs(clientBean2);
 
-        int count1 = clientBean1.logic();   // getObject() : 최초 생성
+        int count1 = clientBean1.logic();   // getObject() 때마다 최초 생성
         assertThat(count1).isEqualTo(1);
         int count2 = clientBean2.logic();
         assertThat(count2).isEqualTo(1);
@@ -49,32 +50,35 @@ public class SingletonWithPrototypeTest {
 
     static class ClientBean {
 //        private final PrototypeBean prototypeBean;   // 생성 시점에 주입 때만 생성
-//        private final Provider<PrototypeBean> prototypeBeanProvider;   // ObjectProvider : 스프링이 자동 주입
-
-//      @Autowired ApplicationContext applicationContext;   // 무식한 방법
-
+//
+//        @Autowired ApplicationContext ac;   // 무식한 방법
 //        @Autowired
-//        public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {   //(PrototypeBean prototypeBean) {
-////            this.prototypeBean = prototypeBean;
+//        public ClientBean(PrototypeBean prototypeBean) {
+//            this.prototypeBean = prototypeBean;
+//        }
+
+//        private final Provider<PrototypeBean> prototypeBeanProvider;   // ObjectProvider : 스프링이 자동 주입
+//
+//        public ClientBean(Provider<PrototypeBean> prototypeBeanProvider) {
 //            this.prototypeBeanProvider = prototypeBeanProvider;   // <T> 반드시
 //        }
 
         private ObjectProvider<PrototypeBean> prototypeBeanProvider;
 
-        // @Autowired 없어도 자동 등록해줘??? 그건 아니고, clientBean1 에서 등록했으니까, ClientBean 싱글톤이잖아. ObjectProvider 도 싱글톤.
+        // @Autowired 없어도 자동 등록???
+        // 그건 아니고, clientBean1 에서 등록 했으니까, ClientBean 은 싱글톤. ObjectProvider 도 싱글톤 주기 가진다.
         public void setPrototypeBeanProvider(ObjectProvider<PrototypeBean> prototypeBeanProvider) {
             this.prototypeBeanProvider = prototypeBeanProvider;
             System.out.println("ClientBean.setPrototypeBeanProvider = " + prototypeBeanProvider);
-            System.out.println("ClientBean.setPrototypeBeanProvider = " + this.prototypeBeanProvider);
         }
 
 
         public int logic() {
 //            System.out.println("prototypeBean 생성");   // getObject() 후 init()
 
-//            PrototypeBean prototypeBean = applicationContext.getBean(PrototypeBean.class);   // 무식한 방법. 호출(요청) 시마다 생성
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();   // ObjectProvider<>
-//            PrototypeBean prototypeBean = prototypeBeanProvider.get();   // Provider<>
+//            PrototypeBean prototypeBean = ac.getBean(PrototypeBean.class);  // 무식한 방법. 호출(요청) 시마다 생성
+            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();  // ObjectProvider<>
+//            PrototypeBean prototypeBean = prototypeBeanProvider.get();      // Provider<>
 
             System.out.println("logic() = " + prototypeBean);
 
@@ -82,6 +86,7 @@ public class SingletonWithPrototypeTest {
             int count = prototypeBean.getCount();
             return count;
         }
+
     }
 
     @Scope("prototype")
@@ -106,5 +111,6 @@ public class SingletonWithPrototypeTest {
             System.out.println("PrototypeBean.destroy");
         }
     }
+
 
 }

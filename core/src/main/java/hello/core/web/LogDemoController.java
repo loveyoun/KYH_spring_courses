@@ -18,16 +18,15 @@ public class LogDemoController {
 //    private final ObjectProvider<MyLogger> myLoggerProvider;
     private final MyLogger myLogger;   // Proxy 이용
 
-//    private ApplicationContext ac;
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) throws InterruptedException {
-//        System.out.println("웹 전용 스프링 컨테이너 확인 = " + ac);
         String requestURL = request.getRequestURL().toString();
 
 //        MyLogger myLogger = myLoggerProvider.getObject();   // 최초 생성
         System.out.println("myLogger = " + myLogger.getClass());
+
         myLogger.setRequestURL(requestURL);
         myLogger.log("controller test");
 
@@ -37,5 +36,6 @@ public class LogDemoController {
 
         return "OK";
     }
+
 
 }

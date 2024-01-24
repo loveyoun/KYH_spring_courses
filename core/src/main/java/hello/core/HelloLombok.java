@@ -19,10 +19,11 @@ public class HelloLombok {
 
         helloLombok.setName("helloLombokName");
 
-        // ToString
+        // ToString()
         System.out.println("helloLombok = " + helloLombok);
 
         System.out.println("name = " + helloLombok.getName());
     }
+
 
 }

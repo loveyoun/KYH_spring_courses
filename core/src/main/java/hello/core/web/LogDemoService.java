@@ -17,4 +17,5 @@ public class LogDemoService {
         myLogger.log("service id = " + id);
     }
 
+
 }
