@@ -1,7 +1,6 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.MemberRepositoryV2;
 import hello.jdbc.repository.MemberRepositoryV3;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +28,13 @@ class MemberServiceV3_1Test {
     private MemberRepositoryV3 memberRepository;
     private MemberServiceV3_1 memberService;
 
+
     @BeforeEach
     void before() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        memberRepository = new MemberRepositoryV3(dataSource);
         PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
+
+        memberRepository = new MemberRepositoryV3(dataSource);
         memberService = new MemberServiceV3_1(transactionManager, memberRepository);
     }
 
@@ -43,6 +44,7 @@ class MemberServiceV3_1Test {
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
     }
+
 
     @Test
     @DisplayName("정상 이체")
@@ -82,5 +84,6 @@ class MemberServiceV3_1Test {
         assertThat(findMemberA.getMoney()).isEqualTo(10000);
         assertThat(findMemberB.getMoney()).isEqualTo(10000);
     }
+
 
 }

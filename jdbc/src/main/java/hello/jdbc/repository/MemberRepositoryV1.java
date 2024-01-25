@@ -25,13 +25,13 @@ public class MemberRepositoryV1 {
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
 
@@ -42,7 +42,7 @@ public class MemberRepositoryV1 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, null);
+            close(con, pstmt, null);
         }
 
     }
@@ -50,14 +50,14 @@ public class MemberRepositoryV1 {
     public Member findById(String memberId) throws SQLException {
         String sql = "select * from member where member_id = ?";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
             rs = pstmt.executeQuery();
@@ -75,7 +75,7 @@ public class MemberRepositoryV1 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, rs);
+            close(con, pstmt, rs);
         }
 
     }
@@ -84,13 +84,13 @@ public class MemberRepositoryV1 {
     public void update(String memberId, int money) throws SQLException {
         String sql = "update member set money = ? where member_id = ?";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
 
@@ -100,7 +100,7 @@ public class MemberRepositoryV1 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, null);
+            close(con, pstmt, null);
         }
 
     }
@@ -109,13 +109,13 @@ public class MemberRepositoryV1 {
     public void delete(String memberId) throws SQLException {
         String sql = "delete from member where member_id = ?";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
             pstmt.executeUpdate();
@@ -123,7 +123,7 @@ public class MemberRepositoryV1 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, null);
+            close(con, pstmt, null);
         }
 
     }
@@ -136,10 +136,10 @@ public class MemberRepositoryV1 {
     }
 
     private Connection getConnection() throws SQLException {
-        Connection conn = dataSource.getConnection();
-        log.info("get connection = {}, class = {}", conn, conn.getClass());
+        Connection con = dataSource.getConnection();
+        log.info("get connection = {}, class = {}", con, con.getClass());
 
-        return conn;
+        return con;
     }
 
 

@@ -28,10 +28,12 @@ class MemberServiceV3_2Test {
     private MemberRepositoryV3 memberRepository;
     private MemberServiceV3_2 memberService;
 
+
     @BeforeEach
     void before() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
         memberRepository = new MemberRepositoryV3(dataSource);
+
         PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
         memberService = new MemberServiceV3_2(transactionManager, memberRepository);
     }
@@ -42,6 +44,7 @@ class MemberServiceV3_2Test {
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
     }
+
 
     @Test
     @DisplayName("정상 이체")
@@ -63,7 +66,7 @@ class MemberServiceV3_2Test {
     }
 
     @Test
-    @DisplayName("이체중 예외 발생")
+    @DisplayName("이체 중 예외 발생")
     void accountTransferEx() throws SQLException {
         //given
         Member memberA = new Member(MEMBER_A, 10000);
@@ -81,5 +84,6 @@ class MemberServiceV3_2Test {
         assertThat(findMemberA.getMoney()).isEqualTo(10000);
         assertThat(findMemberB.getMoney()).isEqualTo(10000);
     }
+
 
 }

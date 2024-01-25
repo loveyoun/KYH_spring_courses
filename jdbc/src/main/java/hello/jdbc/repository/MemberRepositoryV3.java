@@ -23,6 +23,7 @@ public class MemberRepositoryV3 {
         this.dataSource = dataSource;
     }
 
+
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
@@ -64,7 +65,7 @@ public class MemberRepositoryV3 {
                 member.setMoney(rs.getInt("money"));
                 return member;
             } else {
-                throw new NoSuchElementException("member not found memberId=" + memberId);
+                throw new NoSuchElementException("member not found memberId = " + memberId);
             }
 
         } catch (SQLException e) {
@@ -77,7 +78,7 @@ public class MemberRepositoryV3 {
     }
 
     public void update(String memberId, int money) throws SQLException {
-        String sql = "update member set money=? where member_id=?";
+        String sql = "update member set money = ? where member_id = ?";
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -99,7 +100,7 @@ public class MemberRepositoryV3 {
     }
 
     public void delete(String memberId) throws SQLException {
-        String sql = "delete from member where member_id=?";
+        String sql = "delete from member where member_id = ?";
 
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -121,15 +122,15 @@ public class MemberRepositoryV3 {
     private void close(Connection con, Statement stmt, ResultSet rs) {
         JdbcUtils.closeResultSet(rs);
         JdbcUtils.closeStatement(stmt);
-        //주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 한다.
+        // 주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils 를 사용해야 한다.
         DataSourceUtils.releaseConnection(con, dataSource);
     }
 
 
     private Connection getConnection() throws SQLException {
-        //주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 한다.
+        // 주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils 를 사용해야 한다.
         Connection con = DataSourceUtils.getConnection(dataSource);
-        log.info("get connection={}, class={}", con, con.getClass());
+        log.info("get connection = {}, class = {}", con, con.getClass());
         return con;
     }
 

@@ -11,6 +11,7 @@ import java.sql.SQLException;
  * 트랜잭션 - @Transactional AOP
  */
 @Slf4j
+//@Transactional
 public class MemberServiceV3_3 {
 
     private final MemberRepositoryV3 memberRepository;
@@ -18,6 +19,7 @@ public class MemberServiceV3_3 {
     public MemberServiceV3_3(MemberRepositoryV3 memberRepository) {
         this.memberRepository = memberRepository;
     }
+
 
     @Transactional
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
@@ -38,5 +40,6 @@ public class MemberServiceV3_3 {
             throw new IllegalStateException("이체중 예외 발생");
         }
     }
+
 
 }

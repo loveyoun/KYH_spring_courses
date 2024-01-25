@@ -2,14 +2,10 @@ package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
 import hello.jdbc.repository.MemberRepositoryV3;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -26,15 +22,18 @@ public class MemberServiceV3_2 {
         this.memberRepository = memberRepository;
     }
 
+
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
         txTemplate.executeWithoutResult((status) -> {
-            //비즈니스 로직
+            // 비즈니스 로직
             try {
                 bizLogic(fromId, toId, money);
             } catch (SQLException e) {
-                throw new IllegalStateException(e);
+                throw new IllegalStateException(e);  // Checked 를 Unchecked 로.
             }
+
         });
+
     }
 
     private void bizLogic(String fromId, String toId, int money) throws SQLException {
@@ -50,6 +49,8 @@ public class MemberServiceV3_2 {
         if (toMember.getMemberId().equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");
         }
+
     }
+
 
 }

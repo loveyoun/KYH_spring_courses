@@ -5,7 +5,6 @@ import hello.jdbc.repository.MemberRepositoryV3;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.support.AopUtils;
@@ -39,9 +38,14 @@ class MemberServiceV3_3Test {
     private MemberRepositoryV3 memberRepository;
     @Autowired
     private MemberServiceV3_3 memberService;
+    // Proxy 가 스프링 빈에 대신 등록되어
+    // 의존관계도 얘를 주입받고
+    // target = MemberServiceV3_3 의 메서드를 호출하는 것이다.
+
 
     @TestConfiguration
     static class TestConfig {
+
         @Bean
         DataSource dataSource() {
             return new DriverManagerDataSource(URL, USERNAME, PASSWORD);
@@ -51,6 +55,8 @@ class MemberServiceV3_3Test {
         PlatformTransactionManager transactionManager() {
             return new DataSourceTransactionManager(dataSource());
         }
+        // Proxy 에서 갖다 쓴다.
+        // 직접 의존관계 주입 ??? setDataSource() ???
 
         @Bean
         MemberRepositoryV3 memberRepositoryV3() {
@@ -61,7 +67,9 @@ class MemberServiceV3_3Test {
         MemberServiceV3_3 memberServiceV3_3() {
             return new MemberServiceV3_3(memberRepositoryV3());
         }
+
     }
+
 
     @AfterEach
     void after() throws SQLException {
@@ -70,10 +78,11 @@ class MemberServiceV3_3Test {
         memberRepository.delete(MEMBER_EX);
     }
 
+
     @Test
-    void AopCheck() {
-        log.info("memberService class={}", memberService.getClass());
-        log.info("memberRepository class={}", memberRepository.getClass());
+    void AopCheck() {  // AOP 가 진짜로 생성이 되어 적용이 되었나 확인.
+        log.info("memberService class = {}", memberService.getClass());
+        log.info("memberRepository class = {}", memberRepository.getClass());
         Assertions.assertThat(AopUtils.isAopProxy(memberService)).isTrue();
         Assertions.assertThat(AopUtils.isAopProxy(memberRepository)).isFalse();
     }
@@ -116,5 +125,6 @@ class MemberServiceV3_3Test {
         assertThat(findMemberA.getMoney()).isEqualTo(10000);
         assertThat(findMemberB.getMoney()).isEqualTo(10000);
     }
+
 
 }
