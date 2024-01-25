@@ -25,7 +25,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * 예외 누수 문제 해결
  * SQLException 제거
- *
  * MemberRepository 인터페이스 의존
  */
 @Slf4j
@@ -40,6 +39,7 @@ class MemberServiceV4Test {
     private MemberRepository memberRepository;
     @Autowired
     private MemberServiceV4 memberService;
+
 
     @TestConfiguration
     static class TestConfig {
@@ -61,7 +61,9 @@ class MemberServiceV4Test {
         MemberServiceV4 memberServiceV4() {
             return new MemberServiceV4(memberRepository());
         }
+
     }
+
 
     @AfterEach
     void after() {
@@ -69,6 +71,7 @@ class MemberServiceV4Test {
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
     }
+
 
     @Test
     void AopCheck() {
@@ -116,5 +119,6 @@ class MemberServiceV4Test {
         assertThat(findMemberA.getMoney()).isEqualTo(10000);
         assertThat(findMemberB.getMoney()).isEqualTo(10000);
     }
+
 
 }

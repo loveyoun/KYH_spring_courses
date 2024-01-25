@@ -9,6 +9,7 @@ public class MyDbException extends RuntimeException {
         super(message);
     }
 
+    // 감쌌기 때문에, 원인을 꼭 들고 와야 한다.
     public MyDbException(String message, Throwable cause) {
         super(message, cause);
     }

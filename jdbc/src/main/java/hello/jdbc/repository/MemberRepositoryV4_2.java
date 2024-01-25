@@ -1,9 +1,7 @@
 package hello.jdbc.repository;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.ex.MyDbException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
@@ -12,6 +10,7 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * SQLExceptionTranslator 추가
@@ -25,7 +24,9 @@ public class MemberRepositoryV4_2 implements MemberRepository {
     public MemberRepositoryV4_2(DataSource dataSource) {
         this.dataSource = dataSource;
         this.exTranslator = new SQLErrorCodeSQLExceptionTranslator(dataSource);
+        // DataSource 로부터 어떤 DB 를 쓰는지 등의 정보를 찾아서 쓴다.
     }
+
 
     @Override
     public Member save(Member member) {
@@ -36,10 +37,14 @@ public class MemberRepositoryV4_2 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
+
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
+
             pstmt.executeUpdate();
+
             return member;
         } catch (SQLException e) {
             throw exTranslator.translate("save", sql, e);
@@ -59,6 +64,7 @@ public class MemberRepositoryV4_2 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
@@ -89,13 +95,16 @@ public class MemberRepositoryV4_2 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
+
             int resultSize = pstmt.executeUpdate();
             log.info("resultSize={}", resultSize);
         } catch (SQLException e) {
-            throw exTranslator.translate("update", sql, e);
+//            throw exTranslator.translate("update", sql, e);
+            throw Objects.requireNonNull(exTranslator.translate("update", sql, e));
         } finally {
             close(con, pstmt, null);
         }
@@ -111,8 +120,10 @@ public class MemberRepositoryV4_2 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw exTranslator.translate("delete", sql, e);
@@ -129,11 +140,12 @@ public class MemberRepositoryV4_2 implements MemberRepository {
         DataSourceUtils.releaseConnection(con, dataSource);
     }
 
-
     private Connection getConnection() throws SQLException {
         //주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 한다.
         Connection con = DataSourceUtils.getConnection(dataSource);
         log.info("get connection={}, class={}", con, con.getClass());
         return con;
     }
+
+
 }

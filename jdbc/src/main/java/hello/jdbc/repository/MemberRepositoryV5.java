@@ -2,8 +2,10 @@ package hello.jdbc.repository;
 
 import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 
 import javax.sql.DataSource;
 
@@ -18,11 +20,19 @@ public class MemberRepositoryV5 implements MemberRepository {
     public MemberRepositoryV5(DataSource dataSource) {
         this.template = new JdbcTemplate(dataSource);
     }
+    // DataSource 를 가져가서 안에서 다 해결해준다.
+
 
     @Override
     public Member save(Member member) {
         String sql = "insert into member(member_id, money) values (?, ?)";
         template.update(sql, member.getMemberId(), member.getMoney());
+        // 대신 해준다.
+        //
+        // SQLErrorCodeSQLExceptionTranslator exTranslator =
+        // new SQLErrorCodeSQLExceptionTranslator(dataSource).translate("", sql, e);
+        // throws DataAccessException
+
         return member;
     }
 
@@ -52,5 +62,6 @@ public class MemberRepositoryV5 implements MemberRepository {
             return member;
         };
     }
+
 
 }

@@ -25,7 +25,8 @@ public class MemberRepositoryV4_1 implements MemberRepository {
         this.dataSource = dataSource;
     }
 
-    @Override
+
+    @Override  // 구현된 게 안 맞으면 컴파일 오류를 내준다.
     public Member save(Member member) {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
@@ -34,13 +35,16 @@ public class MemberRepositoryV4_1 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
+
             pstmt.executeUpdate();
+
             return member;
         } catch (SQLException e) {
-            throw new MyDbException(e);
+            throw new MyDbException(e);  // 런타임 예외로 변경, not throws SQLException.
         } finally {
             close(con, pstmt, null);
         }
@@ -57,6 +61,7 @@ public class MemberRepositoryV4_1 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
@@ -65,6 +70,7 @@ public class MemberRepositoryV4_1 implements MemberRepository {
                 Member member = new Member();
                 member.setMemberId(rs.getString("member_id"));
                 member.setMoney(rs.getInt("money"));
+
                 return member;
             } else {
                 throw new NoSuchElementException("member not found memberId=" + memberId);
@@ -87,9 +93,11 @@ public class MemberRepositoryV4_1 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
+
             int resultSize = pstmt.executeUpdate();
             log.info("resultSize={}", resultSize);
         } catch (SQLException e) {
@@ -109,8 +117,10 @@ public class MemberRepositoryV4_1 implements MemberRepository {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new MyDbException(e);
@@ -126,7 +136,6 @@ public class MemberRepositoryV4_1 implements MemberRepository {
         //주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 한다.
         DataSourceUtils.releaseConnection(con, dataSource);
     }
-
 
     private Connection getConnection() throws SQLException {
         //주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils를 사용해야 한다.

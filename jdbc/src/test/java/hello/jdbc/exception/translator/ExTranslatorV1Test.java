@@ -25,12 +25,15 @@ public class ExTranslatorV1Test {
     Repository repository;
     Service service;
 
+
     @BeforeEach
     void init() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+
         repository = new Repository(dataSource);
         service = new Service(repository);
     }
+
 
     @Test
     void duplicateKeySave() {
@@ -38,10 +41,13 @@ public class ExTranslatorV1Test {
         service.create("myId");//같은 ID 저장 시도
     }
 
+
     @Slf4j
     @RequiredArgsConstructor
     static class Service {
+
         private final Repository repository;
+
 
         public void create(String memberId) {
             try {
@@ -52,7 +58,7 @@ public class ExTranslatorV1Test {
                 String retryId = generateNewId(memberId);
                 log.info("retryId={}", retryId);
                 repository.save(new Member(retryId, 0));
-            } catch (MyDbException e) {
+            } catch (MyDbException e) {  // 안 해줘도 던져진다.
                 log.info("데이터 접근 계층 예외", e);
                 throw e;
             }
@@ -62,23 +68,30 @@ public class ExTranslatorV1Test {
             return memberId + new Random().nextInt(10000);
         }
 
+
     }
 
     @RequiredArgsConstructor
     static class Repository {
+
         private final DataSource dataSource;
+
 
         public Member save(Member member) {
             String sql = "insert into member(member_id, money) values(?,?)";
+
             Connection con = null;
             PreparedStatement pstmt = null;
 
             try {
                 con = dataSource.getConnection();
+
                 pstmt = con.prepareStatement(sql);
                 pstmt.setString(1, member.getMemberId());
                 pstmt.setInt(2, member.getMoney());
+
                 pstmt.executeUpdate();
+
                 return member;
             } catch (SQLException e) {
                 //h2 db
@@ -90,6 +103,10 @@ public class ExTranslatorV1Test {
                 JdbcUtils.closeStatement(pstmt);
                 JdbcUtils.closeConnection(con);
             }
+
         }
+
     }
+
+
 }
