@@ -11,7 +11,10 @@ import java.io.IOException;
 /**
  * 1. 파라미터 전송 기능
  * http://localhost:8080/request-param?username=hello&username=kim&age=20
- **/
+ * <p>
+ * 2. 동일한 파라미터 전송 가능
+ * http://localhost:8080/request-param?username=hello&username=kim&age=20
+ */
 @WebServlet(name = "requestParamServlet", urlPatterns = "/request-param")  // servlet mapping
 public class RequestParamServlet extends HttpServlet {
 
@@ -41,7 +44,7 @@ public class RequestParamServlet extends HttpServlet {
         System.out.println();
 
         response.getWriter().write("ok");
-
     }
+
 
 }

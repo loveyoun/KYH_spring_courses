@@ -18,9 +18,9 @@ public class MemberListServlet extends HttpServlet {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         // Service, Repository 역할
         List<Member> members = memberRepository.findAll();
 
@@ -59,5 +59,6 @@ public class MemberListServlet extends HttpServlet {
         w.write("</body>");
         w.write("</html>");
     }
+
 
 }

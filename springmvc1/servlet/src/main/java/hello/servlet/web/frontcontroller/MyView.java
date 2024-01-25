@@ -35,11 +35,11 @@ public class MyView {
         dispatcher.forward(request, response);  // JSP 가 request.getAttribute() 해서 쓴다.
     }
 
-
     private void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
         model.forEach(request::setAttribute);  // key = "members", value = List<Member>
-        // lambda : (key, value) 로 변수 꺼내서, 함수적용
+        // lambda : (key, value) 로 변수 꺼내서, 함수 적용
 //        model.forEach((key, value) -> request.setAttribute(key, value));
     }
+
 
 }

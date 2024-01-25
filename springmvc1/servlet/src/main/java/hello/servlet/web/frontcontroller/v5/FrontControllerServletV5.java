@@ -56,7 +56,6 @@ public class FrontControllerServletV5 extends HttpServlet {
         handlerAdapters.add(new ControllerV4HandlerAdapter());
     }
 
-
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Object handler = getHandler(request); // == Controller
@@ -72,10 +71,8 @@ public class FrontControllerServletV5 extends HttpServlet {
 
         // View 로 보내는 역할
         MyView view = viewResolver(mv.getViewName());
-
         view.render(mv.getModel(), request, response);
     }
-
 
     private Object getHandler(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
@@ -87,12 +84,14 @@ public class FrontControllerServletV5 extends HttpServlet {
             if (adapter.supports(handler))
                 return adapter;
         }
+
         throw new IllegalArgumentException("handler adapter 를 찾을 수 없습니다. handler =" + handler);
     }
 
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
+
 
 }
 

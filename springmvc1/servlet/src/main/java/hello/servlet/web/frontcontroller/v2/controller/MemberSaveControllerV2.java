@@ -14,6 +14,7 @@ public class MemberSaveControllerV2 implements ControllerV2 {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
+
     @Override
     public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -27,5 +28,6 @@ public class MemberSaveControllerV2 implements ControllerV2 {
 
         return new MyView("/WEB-INF/views/save-result.jsp");
     }
+
 
 }

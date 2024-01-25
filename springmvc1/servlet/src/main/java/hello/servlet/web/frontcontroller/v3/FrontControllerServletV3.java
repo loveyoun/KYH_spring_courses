@@ -36,7 +36,8 @@ public class FrontControllerServletV3 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestURI = request.getRequestURI();
+        String requestURI = request.getRequestURI();   // new-form, save, _ 중
+
         ControllerV3 controller = controllerMap.get(requestURI);
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -45,12 +46,10 @@ public class FrontControllerServletV3 extends HttpServlet {
 
         // Model 에 저장 역할
         Map<String, String> paramMap = createParamMap(request);
-
         ModelView mv = controller.process(paramMap);
 
         // View 로 보내는 역할
         MyView view = viewResolver(mv.getViewName());  // 논리 주소 -> 물리 주소
-
         view.render(mv.getModel(), request, response);
     }
 
@@ -66,5 +65,6 @@ public class FrontControllerServletV3 extends HttpServlet {
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
+
 
 }

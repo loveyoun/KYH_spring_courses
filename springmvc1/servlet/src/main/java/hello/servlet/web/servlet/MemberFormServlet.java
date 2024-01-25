@@ -20,6 +20,7 @@ public class MemberFormServlet extends HttpServlet {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -27,9 +28,10 @@ public class MemberFormServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
 
-        /* Servlet 단점:
+        /*
+         * Servlet 단점:
          * 뷰 내려줄 때 불편하다
-         * */
+         */
         PrintWriter w = response.getWriter();
         w.write("<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -45,7 +47,7 @@ public class MemberFormServlet extends HttpServlet {
                 "</form>\n" +
                 "</body>\n" +
                 "</html>\n");
-
     }
+
 
 }

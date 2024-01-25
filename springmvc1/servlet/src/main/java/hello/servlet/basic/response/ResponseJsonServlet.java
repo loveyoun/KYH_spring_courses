@@ -15,6 +15,7 @@ public class ResponseJsonServlet extends HttpServlet {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Content-Type: application/json
@@ -29,5 +30,6 @@ public class ResponseJsonServlet extends HttpServlet {
         String result = objectMapper.writeValueAsString(helloData);
         response.getWriter().write(result);
     }
+
 
 }

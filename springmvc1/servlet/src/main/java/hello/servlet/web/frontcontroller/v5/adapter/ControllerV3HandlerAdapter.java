@@ -17,7 +17,6 @@ import java.util.Map;
  * FrontController ↔ ControllerV3 ->
  * FrontController ↔ Adapter ↔ ControllerV3
  **/
-
 public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
     @Override
@@ -34,7 +33,6 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
         return controller.process(paramMap);  // @return ModelView
     }
 
-
     private Map<String, String> createParamMap(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
         request.getParameterNames().asIterator()
@@ -42,5 +40,6 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
         return paramMap;
     }
+
 
 }

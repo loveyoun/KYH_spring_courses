@@ -13,7 +13,7 @@ import java.util.Map;
 
 /**
  * ControllerV4 지원 Adapter
- * == 그냥 ControllerV4 대행. Model 보내주고 Model, View 반환.
+ * == 그냥 ControllerV4 대행. Model 보내주고, Model, View 반환.
  * FrontController ↔ ControllerV4 ->
  * FrontController ↔ Adapter ↔ ControllerV4
  **/
@@ -51,5 +51,6 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
         return paramMap;
     }
+
 
 }

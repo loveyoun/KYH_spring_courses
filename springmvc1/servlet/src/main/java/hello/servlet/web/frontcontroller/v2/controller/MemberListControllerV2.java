@@ -15,6 +15,7 @@ public class MemberListControllerV2 implements ControllerV2 {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
+
     @Override
     public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Service, Repository
@@ -26,5 +27,6 @@ public class MemberListControllerV2 implements ControllerV2 {
 
         return new MyView("/WEB-INF/views/members.jsp");
     }
+
 
 }

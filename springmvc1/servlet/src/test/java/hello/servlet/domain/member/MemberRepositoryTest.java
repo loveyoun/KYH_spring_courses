@@ -12,11 +12,13 @@ class MemberRepositoryTest {
 
     MemberRepository memberRepository = MemberRepository.getInstance();  // 싱글톤 -> new() 안 됨
 
+
     // Test 순서 보장이 안 된다.
     @AfterEach
     void afterEach() {
         memberRepository.clearStore();
     }
+
 
     @Test
     void save() {
@@ -48,5 +50,6 @@ class MemberRepositoryTest {
         assertThat(result.size()).isEqualTo(2);
         assertThat(result).contains(member1, member2);
     }
+
 
 }

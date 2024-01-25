@@ -41,10 +41,10 @@ public class FrontControllerServletV4 extends HttpServlet {
             return;
         }
 
-        // Model 에 저장 역할
         Map<String, String> paramMap = createParamMap(request);
-        Map<String, Object> model = new HashMap<>();  // 추가
+        Map<String, Object> model = new HashMap<>();  // V3 + 추가
 
+        // Model 에 저장 역할
         String viewName = controller.process(paramMap, model);
 
         // View 로 보내는 역할
@@ -52,7 +52,6 @@ public class FrontControllerServletV4 extends HttpServlet {
 
         view.render(model, request, response);
     }
-
 
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
@@ -65,5 +64,6 @@ public class FrontControllerServletV4 extends HttpServlet {
 
         return paramMap;
     }
+
 
 }

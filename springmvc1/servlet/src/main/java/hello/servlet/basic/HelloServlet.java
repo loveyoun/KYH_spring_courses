@@ -13,7 +13,6 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         System.out.println("HelloServlet.service");
         System.out.println("request = " + request);
         System.out.println("response = " + response);
@@ -21,11 +20,11 @@ public class HelloServlet extends HttpServlet {
         String username = request.getParameter("username");
         System.out.println("username = " + username);
 
+
         response.setContentType("text/plain");   // Http Header Content-Type
         response.setCharacterEncoding("utf-8");  // Http Header Content-Type
-
         response.getWriter().write("hello " + username);  // HTTP body 에 들어가는 data
-
     }
+
 
 }

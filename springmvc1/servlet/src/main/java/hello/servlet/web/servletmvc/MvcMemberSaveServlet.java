@@ -21,6 +21,7 @@ public class MvcMemberSaveServlet extends HttpServlet {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -36,8 +37,8 @@ public class MvcMemberSaveServlet extends HttpServlet {
         String viewPath = "/WEB-INF/views/save-result.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         // 여기로 넘어갈 거다.
-        dispatcher.forward(request, response); // 호출
-
+        dispatcher.forward(request, response); // 호출ㅐ
     }
+
 
 }

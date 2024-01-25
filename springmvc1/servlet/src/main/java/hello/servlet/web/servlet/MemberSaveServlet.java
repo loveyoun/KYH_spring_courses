@@ -21,14 +21,14 @@ public class MemberSaveServlet extends HttpServlet {
 
     private final MemberRepository memberRepository = MemberRepository.getInstance();
 
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("MemberSaveServlet.service");
 
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
-        // 항상 문자이다
-
+        // 항상 문자이다.
 
         // Service, Repository 역할
         Member member = new Member(username, age);
@@ -54,7 +54,7 @@ public class MemberSaveServlet extends HttpServlet {
                 "<a href=\"/index.html\">메인</a>\n" +  // 서버에서 임의로 캐시 -> 200이 회색으로 => 재동기화
                 "</body>\n" +
                 "</html>");
-
     }
+
 
 }
