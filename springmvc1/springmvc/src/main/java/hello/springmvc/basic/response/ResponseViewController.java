@@ -26,4 +26,5 @@ public class ResponseViewController {
         model.addAttribute("data", "hello!");
     }
 
+
 }

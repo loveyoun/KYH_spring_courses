@@ -12,14 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-import static hello.jdbc.connection.ConnectionConst.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -39,14 +35,17 @@ class MemberServiceV3_4Test {
     @Autowired
     private MemberServiceV3_3 memberService;
 
+
     @TestConfiguration
     static class TestConfig {
 
+        // @Autowired
         private final DataSource dataSource;
 
         public TestConfig(DataSource dataSource) {
             this.dataSource = dataSource;
         }
+
 
         @Bean
         MemberRepositoryV3 memberRepositoryV3() {
@@ -57,7 +56,9 @@ class MemberServiceV3_4Test {
         MemberServiceV3_3 memberServiceV3_3() {
             return new MemberServiceV3_3(memberRepositoryV3());
         }
+
     }
+
 
     @AfterEach
     void after() throws SQLException {
@@ -65,6 +66,7 @@ class MemberServiceV3_4Test {
         memberRepository.delete(MEMBER_B);
         memberRepository.delete(MEMBER_EX);
     }
+
 
     @Test
     void AopCheck() {
@@ -112,5 +114,6 @@ class MemberServiceV3_4Test {
         assertThat(findMemberA.getMoney()).isEqualTo(10000);
         assertThat(findMemberB.getMoney()).isEqualTo(10000);
     }
+
 
 }

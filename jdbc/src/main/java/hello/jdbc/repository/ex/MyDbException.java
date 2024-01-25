@@ -16,4 +16,6 @@ public class MyDbException extends RuntimeException {
     public MyDbException(Throwable cause) {
         super(cause);
     }
+
+
 }

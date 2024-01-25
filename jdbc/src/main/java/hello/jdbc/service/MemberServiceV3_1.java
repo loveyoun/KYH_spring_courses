@@ -51,6 +51,7 @@ public class MemberServiceV3_1 {
         if (toMember.getMemberId().equals("ex")) {
             throw new IllegalStateException("이체중 예외 발생");
         }
+
     }
 
 

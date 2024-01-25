@@ -16,4 +16,6 @@ public class MyDuplicateKeyException extends MyDbException {
     public MyDuplicateKeyException(Throwable cause) {
         super(cause);
     }
+
+
 }

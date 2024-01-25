@@ -22,9 +22,7 @@ public class RequestHeaderController {
                           Locale locale,
                           @RequestHeader MultiValueMap<String, String> headerMap,
                           @RequestHeader("host") String host,  // 필수 header
-                          @CookieValue(value = "myCookie", required = false) String cookie
-    ) {
-
+                          @CookieValue(value = "myCookie", required = false) String cookie) {
         log.info("request={}", request);
         log.info("response={}", response);
         log.info("httpMethod={}", httpMethod);
@@ -34,5 +32,6 @@ public class RequestHeaderController {
         log.info("myCookie={}", cookie);
         return "ok";
     }
+
 
 }

@@ -11,15 +11,14 @@ public class LogTestController {
 
     private final Logger log = LoggerFactory.getLogger(getClass()); // == @Slf4j
 
+
     @RequestMapping("/log-test")
     public String logTest() {
         String name = "Spring";
-
         System.out.println("name = " + name);
 
-        /*
-         * 더하기 연산 미리 되어서 메모리, CPU 등 쓸모없는 resource 사용
-         */
+
+        // 더하기 연산 미리 되어서 메모리, CPU 등 쓸모없는 resource 사용
         log.trace(" trace my log=" + name);
 
         // parameter 넘기기
@@ -32,5 +31,6 @@ public class LogTestController {
 
         return "ok";
     }
+
 
 }

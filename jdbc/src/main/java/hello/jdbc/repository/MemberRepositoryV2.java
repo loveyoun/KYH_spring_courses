@@ -27,7 +27,6 @@ public class MemberRepositoryV2 {
         return con;
     }
 
-
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
@@ -51,7 +50,6 @@ public class MemberRepositoryV2 {
     }
 
     /**
-     * findById
      * AutoCommit ver.
      */
     public Member findById(String memberId) throws SQLException {
@@ -86,18 +84,19 @@ public class MemberRepositoryV2 {
     }
 
     /**
-     * findById
      * ManualCommit ver.
      * 외부에서 Conn 주입.
+     *
+     * @파라미터 Connection
      */
-    public Member findById(Connection conn, String memberId) throws SQLException {
+    public Member findById(Connection con, String memberId) throws SQLException {
         String sql = "select * from member where member_id = ?";
 
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
             rs = pstmt.executeQuery();
@@ -143,13 +142,17 @@ public class MemberRepositoryV2 {
 
     }
 
-    public void update(Connection conn, String memberId, int money) throws SQLException {
+    /**
+     * ManualCommit ver.
+     * @파라미터 Connection
+     */
+    public void update(Connection con, String memberId, int money) throws SQLException {
         String sql = "update member set money = ? where member_id = ?";
 
         PreparedStatement pstmt = null;
 
         try {
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
             int resultSize = pstmt.executeUpdate();
@@ -183,7 +186,6 @@ public class MemberRepositoryV2 {
         }
 
     }
-
 
     private void close(Connection con, Statement stmt, ResultSet rs) {
         JdbcUtils.closeResultSet(rs);

@@ -22,6 +22,13 @@ public class MemberRepositoryV1 {
     // 의존관계 주입
 
 
+    private Connection getConnection() throws SQLException {
+        Connection con = dataSource.getConnection();
+        log.info("get connection = {}, class = {}", con, con.getClass());
+
+        return con;
+    }
+
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
@@ -80,7 +87,6 @@ public class MemberRepositoryV1 {
 
     }
 
-
     public void update(String memberId, int money) throws SQLException {
         String sql = "update member set money = ? where member_id = ?";
 
@@ -105,7 +111,6 @@ public class MemberRepositoryV1 {
 
     }
 
-
     public void delete(String memberId) throws SQLException {
         String sql = "delete from member where member_id = ?";
 
@@ -128,18 +133,10 @@ public class MemberRepositoryV1 {
 
     }
 
-
     private void close(Connection con, Statement stmt, ResultSet rs) {
         JdbcUtils.closeResultSet(rs);
         JdbcUtils.closeStatement(stmt);
         JdbcUtils.closeConnection(con);
-    }
-
-    private Connection getConnection() throws SQLException {
-        Connection con = dataSource.getConnection();
-        log.info("get connection = {}, class = {}", con, con.getClass());
-
-        return con;
     }
 
 

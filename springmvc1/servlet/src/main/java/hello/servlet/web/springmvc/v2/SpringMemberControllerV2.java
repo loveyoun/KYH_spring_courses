@@ -30,20 +30,21 @@ public class SpringMemberControllerV2 {
         Member member = new Member(username, age);
         memberRepository.save(member);
 
-        ModelAndView mv = new ModelAndView("save-result");
-        mv.addObject("member", member);
+        ModelAndView mav = new ModelAndView("save-result");
+        mav.addObject("member", member);
 
-        return mv;
+        return mav;
     }
 
     @RequestMapping
     public ModelAndView members() {
         List<Member> members = memberRepository.findAll();
 
-        ModelAndView mv = new ModelAndView("members");
-        mv.addObject("members", members);
+        ModelAndView mav = new ModelAndView("members");
+        mav.addObject("members", members);
 
-        return mv;
+        return mav;
     }
+
 
 }
