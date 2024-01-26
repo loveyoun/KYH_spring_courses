@@ -11,6 +11,7 @@ class ItemRepositoryTest {
 
     ItemRepository itemRepository = new ItemRepository();
 
+
     @AfterEach
     void afterEach() {
         itemRepository.clearStore();
@@ -21,17 +22,18 @@ class ItemRepositoryTest {
     void save() {
         //given
         Item item = new Item("itemA", 10000, 10);
-        // item = @7c6908d7, id = null
+        System.out.println("item = " + item);
+        // Item@34e9fd99
 
         //when
         Item savedItem = itemRepository.save(item);
-        // savedItem = @7c6908d7, id = 1
-
-        Long itemId = savedItem.getId();  // == item.getId();
-        Item findItem = itemRepository.findById(itemId);
+        System.out.println("savedItem = " + savedItem);
+        // Item@34e9fd99
 
         //then
-        assertThat(findItem).isEqualTo(savedItem);
+        Item findItem = itemRepository.findById(item.getId());
+
+        assertThat(findItem).isEqualTo(savedItem);  //.isSameAs(savedItem)
     }
 
     @Test
@@ -70,5 +72,6 @@ class ItemRepositoryTest {
         assertThat(findItem.getPrice()).isEqualTo(updateParam.getPrice());
         assertThat(findItem.getQuantity()).isEqualTo(updateParam.getQuantity());
     }
+
 
 }

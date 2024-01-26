@@ -13,10 +13,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/basic/items")
-@RequiredArgsConstructor  // final 변수들
+@RequiredArgsConstructor
 public class BasicItemController {
 
-    private final ItemRepository itemRepository;  // @RequiredArgsConstructor
+    private final ItemRepository itemRepository;
+
 
     @GetMapping
     public String items(Model model) {
@@ -25,14 +26,12 @@ public class BasicItemController {
         return "basic/items";
     }
 
-
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item", item);
         return "basic/item";
     }
-
 
     @GetMapping("/add")
     public String addForm() {
@@ -92,7 +91,6 @@ public class BasicItemController {
         return "redirect:/basic/items/{itemId}";
     }
 
-
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
@@ -115,6 +113,7 @@ public class BasicItemController {
         itemRepository.save(new Item("itemA", 10000, 10));
         itemRepository.save(new Item("itemB", 20000, 20));
     }
+
 
 }
 

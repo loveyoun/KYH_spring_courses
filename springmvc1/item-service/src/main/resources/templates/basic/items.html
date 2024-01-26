@@ -1,14 +1,11 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"> <!-- th 쓸 수 있게 설정 -->
 <head>
     <meta charset="utf-8">
-    <!-- D:\Spring Study\springmvc1\item-service\src\main\resources\templates\basic\items.html
-    href="../../static/css/bootstrap.min.css" : 상대 경로
-    -> D:\Spring Study\springmvc1\item-service\src\main\resources\templates\static/css/bootstrap.min.css -->
     <link href="../css/bootstrap.min.css"
           th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <!-- 절대 경로 : (Root)/ 로 시작, 상대 경로 : 그냥 path 이름 or ../ -->
-    <!-- th:href : 렌더링될 때, 정적일 때의 기본 href 날리고 덮어버림.
+    <!-- th:href 속성: 렌더링될 때, 정적일 때의 기본 href 를 날리고 덮어버림.
     Path from Content Root : resources/static/css/bootstrap.min.css
     Path from Source Root : static/css/bootstrap.min.css
     정적 리소스 URL 링크 : localhost:8080(web Root)/css/bootstrap.min.css -->
