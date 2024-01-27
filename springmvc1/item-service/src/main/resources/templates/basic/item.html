@@ -55,12 +55,18 @@
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
                     onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/basic/items}'|"
+                    th:onclick="|location.href='@{/basic/item}'|"
                     type="button">목록으로
             </button>
+            <!--
+            '@{/basic/items.html}' 안 됨. templates file 은 url 통해서 직접 접근이 안 된다.
+            localhost:8080/basic/items.html 개념이 없다.
+            '@{/html/items.html}' 는 가능. localhost:8080/html/items.html
+            -->
         </div>
     </div>
 
 </div> <!-- /container -->
+
 </body>
 </html>

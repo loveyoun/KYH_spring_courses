@@ -33,7 +33,7 @@ public class ItemRepository {
         return new ArrayList<>(store.values());
     }
     // Collection 으로 감싸면, ArrayList 에 값을 넣어도 store 에 영향이 없어서.
-    // 타입 맞춰야 하는 문제.
+    // 타입 맞춰야 하는 문제도 있고.
 
     public void update(Long itemId, Item updateParam) {  // ItemDto.class 해서 하는 게 맞음.
         Item findItem = findById(itemId);
