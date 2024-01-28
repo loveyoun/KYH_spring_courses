@@ -17,6 +17,7 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("TestServlet.service");
+
         resp.getWriter().println("test");
     }
 
