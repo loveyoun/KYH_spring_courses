@@ -12,10 +12,14 @@ public class MemoryController {
 
     private final MemoryFinder memoryFinder;
 
+
     @GetMapping("/memory")
     public Memory system() {
         Memory memory = memoryFinder.get();
-        log.info("memory={}", memory);
-        return memory;
+        log.info("memory = {}", memory);
+
+        return memory; // controller 에서 나가면서 JSON 으로 보여진다.
     }
+
+
 }

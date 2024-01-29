@@ -13,28 +13,35 @@ import javax.sql.DataSource;
 @Slf4j
 //@Configuration
 public class DbConfig {
+    // DB 연동
 
     @Bean
     public DataSource dataSource() {
         log.info("dataSource 빈 등록");
+
+        // 히카리 커넥션 풀.
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setDriverClassName("org.h2.Driver");
         dataSource.setJdbcUrl("jdbc:h2:mem:test");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
+
         return dataSource;
     }
 
     @Bean
     public TransactionManager transactionManager() {
         log.info("transactionManager 빈 등록");
+
         return new JdbcTransactionManager(dataSource());
     }
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
         log.info("jdbcTemplate 빈 등록");
+
         return new JdbcTemplate(dataSource());
     }
+
 
 }

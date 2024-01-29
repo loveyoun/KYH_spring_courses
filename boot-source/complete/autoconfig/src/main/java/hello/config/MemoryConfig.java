@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@Conditional(MemoryCondition.class)
-@ConditionalOnProperty(name = "memory", havingValue = "on") //추가
+//@Conditional(MemoryCondition.class)  // matches() 실행
+@ConditionalOnProperty(name = "memory", havingValue = "on")
 public class MemoryConfig {
 
     @Bean
