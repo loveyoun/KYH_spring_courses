@@ -11,6 +11,7 @@ public class MemoryFinder {
         long total = Runtime.getRuntime().totalMemory();
         long free = Runtime.getRuntime().freeMemory();
         long used = total - free;
+
         return new Memory(used, max);
     }
 
@@ -18,4 +19,6 @@ public class MemoryFinder {
     public void init() {
         log.info("init memoryFinder");
     }
+
+
 }

@@ -17,4 +17,5 @@ public class MemoryAutoConfig {
     public MemoryFinder memoryFinder() {
         return new MemoryFinder();
     }
+
 }

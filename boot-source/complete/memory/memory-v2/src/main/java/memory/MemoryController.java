@@ -12,10 +12,14 @@ public class MemoryController {
 
     private final MemoryFinder memoryFinder;
 
+
     @GetMapping("/memory")
     public Memory system() {
         Memory memory = memoryFinder.get();
         log.info("memory={}", memory);
+
         return memory;
     }
+
+
 }

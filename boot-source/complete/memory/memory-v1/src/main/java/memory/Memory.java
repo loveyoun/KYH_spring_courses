@@ -1,6 +1,7 @@
 package memory;
 
 public class Memory {
+
     private long used;
     private long max;
 
@@ -8,6 +9,7 @@ public class Memory {
         this.used = used;
         this.max = max;
     }
+
 
     public long getUsed() {
         return used;
@@ -24,4 +26,6 @@ public class Memory {
                 ", max=" + max +
                 '}';
     }
+
+
 }

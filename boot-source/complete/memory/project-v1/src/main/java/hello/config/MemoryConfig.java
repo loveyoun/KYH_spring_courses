@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MemoryConfig {
+
     @Bean
     public MemoryFinder memoryFinder() {
         return new MemoryFinder();
@@ -16,4 +17,5 @@ public class MemoryConfig {
     public MemoryController memoryController() {
         return new MemoryController(memoryFinder());
     }
+
 }
