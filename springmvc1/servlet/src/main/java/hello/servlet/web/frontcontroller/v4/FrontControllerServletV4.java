@@ -18,8 +18,7 @@ import java.util.Map;
  * V4
  * FrontController : Model 생성해서 참조 값 공유.
  * Model 을 주고받지 않아도 됨.
- **/
-
+ */
 @WebServlet(name = "frontControllerServletV4", urlPatterns = "/front-controller/v4/*")
 public class FrontControllerServletV4 extends HttpServlet {
 
@@ -42,9 +41,10 @@ public class FrontControllerServletV4 extends HttpServlet {
         }
 
         Map<String, String> paramMap = createParamMap(request);
-        Map<String, Object> model = new HashMap<>();  // V3 + 추가
 
-        // Model 에 저장 역할
+        Map<String, Object> model = new HashMap<>();  // 추가
+
+        // Controller 호출, Model 에 저장 역할
         String viewName = controller.process(paramMap, model);
 
         // View 로 보내는 역할
@@ -64,6 +64,5 @@ public class FrontControllerServletV4 extends HttpServlet {
 
         return paramMap;
     }
-
 
 }

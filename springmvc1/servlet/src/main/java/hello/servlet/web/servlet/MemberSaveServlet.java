@@ -13,8 +13,7 @@ import java.io.PrintWriter;
 
 /**
  * MemberFormServlet ->
- **/
-
+ */
 // Controller 역할
 @WebServlet(name = "memberSaveServlet", urlPatterns = "/servlet/members/save")
 public class MemberSaveServlet extends HttpServlet {
@@ -33,7 +32,6 @@ public class MemberSaveServlet extends HttpServlet {
         // Service, Repository 역할
         Member member = new Member(username, age);
         memberRepository.save(member);
-
 
         // View 역할
         response.setContentType("text/html");
@@ -55,6 +53,5 @@ public class MemberSaveServlet extends HttpServlet {
                 "</body>\n" +
                 "</html>");
     }
-
 
 }

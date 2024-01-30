@@ -11,5 +11,4 @@ public class MemberFormControllerV4 implements ControllerV4 {
         return "new-form";
     }
 
-
 }

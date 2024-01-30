@@ -24,13 +24,13 @@ public class MvcMemberListServlet extends HttpServlet {
         // Service, Repository
         List<Member> members = memberRepository.findAll();
 
-        // Controller
+        // Model
         request.setAttribute("members", members);
 
+        // View 로.
         String viewPath = "/WEB-INF/views/members.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
     }
-
 
 }

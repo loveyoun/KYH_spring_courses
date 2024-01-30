@@ -46,16 +46,18 @@ public class RequestHeaderServlet extends HttpServlet {
         System.out.println("--- Headers - start ---");
 
         // 옛날 방식
-//        Enumeration<String> headerNames = request.getHeaderNames();
-//        while (headerNames.hasMoreElements()) {
-//            String headerName = headerNames.nextElement();
-//            System.out.println(headerName + ": " + headerName);
-//        }
+        /*
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            System.out.println(headerName + ": " + headerName);
+        }
+         */
 
         request.getHeaderNames().asIterator()
-                .forEachRemaining(headerName -> System.out.println(headerName + ": " + headerName));
-
-        request.getHeader("host");
+                .forEachRemaining(headerName
+                        -> System.out.println(headerName + ": " + request.getHeader(headerName)));
+        // == request.getHeader("host");
 
         System.out.println("--- Headers - end ---\n");
     }
@@ -79,8 +81,9 @@ public class RequestHeaderServlet extends HttpServlet {
 
         System.out.println("[cookie 편의 조회]");
         if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies())
+            for (Cookie cookie : request.getCookies()) {
                 System.out.println(cookie.getName() + ": " + cookie.getValue());
+            }
         }
 
         System.out.println();
@@ -111,6 +114,5 @@ public class RequestHeaderServlet extends HttpServlet {
 
         System.out.println("--- 기타 조회 end ---\n");
     }
-
 
 }

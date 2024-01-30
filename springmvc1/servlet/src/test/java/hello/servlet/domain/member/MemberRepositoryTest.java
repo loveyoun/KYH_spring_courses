@@ -10,7 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 // JUnit 5 부터는 public 없어도 된다.
 class MemberRepositoryTest {
 
-    MemberRepository memberRepository = MemberRepository.getInstance();  // 싱글톤 -> new() 안 됨
+    MemberRepository memberRepository = MemberRepository.getInstance();
+    // 싱글톤 -> new() 안 됨
 
 
     // Test 순서 보장이 안 된다.
@@ -50,6 +51,5 @@ class MemberRepositoryTest {
         assertThat(result.size()).isEqualTo(2);
         assertThat(result).contains(member1, member2);
     }
-
 
 }

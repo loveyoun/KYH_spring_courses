@@ -12,8 +12,7 @@ import java.io.PrintWriter;
 
 /**
  * -> MemberSaveServlet 로
- **/
-
+ */
 // Controller 역할
 @WebServlet(name = "memberFormServlet", urlPatterns = "/servlet/members/new-form")
 public class MemberFormServlet extends HttpServlet {
@@ -23,7 +22,6 @@ public class MemberFormServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         // View 역할
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
@@ -48,6 +46,5 @@ public class MemberFormServlet extends HttpServlet {
                 "</body>\n" +
                 "</html>\n");
     }
-
 
 }

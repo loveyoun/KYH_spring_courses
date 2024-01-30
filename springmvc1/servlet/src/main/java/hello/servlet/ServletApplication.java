@@ -12,11 +12,13 @@ public class ServletApplication {
         SpringApplication.run(ServletApplication.class, args);
     }
 
-    // 스프링 부트가 설정 정보 가져와서 자동으로
-//	@Bean
-//	ViewResolver internalResourceViewResolver() {
-//		return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
-//	}
 
+    // 스프링 부트가 설정 정보 가져와서 자동으로
+    /*
+    @Bean
+    ViewResolver internalResourceViewResolver() {
+        return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+    }
+     */
 
 }

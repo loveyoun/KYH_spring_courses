@@ -24,7 +24,6 @@ public class MemberListServlet extends HttpServlet {
         // Service, Repository 역할
         List<Member> members = memberRepository.findAll();
 
-
         // View 역할
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
@@ -59,6 +58,5 @@ public class MemberListServlet extends HttpServlet {
         w.write("</body>");
         w.write("</html>");
     }
-
 
 }

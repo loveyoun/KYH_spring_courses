@@ -21,5 +21,4 @@ public class MemberListControllerV4 implements ControllerV4 {
         return "members";
     }
 
-
 }

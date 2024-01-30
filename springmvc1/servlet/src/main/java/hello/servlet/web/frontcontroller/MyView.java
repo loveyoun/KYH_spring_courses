@@ -36,10 +36,9 @@ public class MyView {
     }
 
     private void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
-        model.forEach(request::setAttribute);  // key = "members", value = List<Member>
         // lambda : (key, value) 로 변수 꺼내서, 함수 적용
+        model.forEach(request::setAttribute);  // key = "members", value = List<Member>
 //        model.forEach((key, value) -> request.setAttribute(key, value));
     }
-
 
 }

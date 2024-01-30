@@ -23,7 +23,8 @@ public class RequestParamServlet extends HttpServlet {
 
         System.out.println("[전체 파라미터 조회] - start");
         request.getParameterNames().asIterator()
-                .forEachRemaining(paramName -> System.out.println(paramName + "=" + request.getParameter(paramName)));
+                .forEachRemaining(paramName
+                        -> System.out.println(paramName + "=" + request.getParameter(paramName)));
 
         System.out.println();
 
@@ -38,9 +39,9 @@ public class RequestParamServlet extends HttpServlet {
         // 한 파라미터에 여러 값
         System.out.println("[이름이 같은 복수 파라미터 조회]");
         String[] usernames = request.getParameterValues("username");
-        for (String name : usernames)
+        for (String name : usernames) {
             System.out.println("username = " + name);
-
+        }
         System.out.println();
 
         response.getWriter().write("ok");

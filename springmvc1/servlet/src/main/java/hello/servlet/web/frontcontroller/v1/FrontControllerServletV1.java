@@ -18,7 +18,6 @@ import java.util.Map;
  * FrontController 도입 : URL 배분
  * 아직 각 Controller : Service, Repository 역할 + Controller(View 로 보내고 Model 에 저장) 역할
  */
-
 // /front-controller/v1/~~~ 요청오면 일단 이거 호출
 @WebServlet(name = "frontControllerServletV1", urlPatterns = "/front-controller/v1/*")
 public class FrontControllerServletV1 extends HttpServlet {
@@ -36,7 +35,7 @@ public class FrontControllerServletV1 extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("FrontControllerServletV1.service");
 
-        // key = /front-controller/v1/members/new-form, value = 구현체
+        // key = url, value = 구현체
         String requestURI = request.getRequestURI();
 
         // 다형성
@@ -49,12 +48,12 @@ public class FrontControllerServletV1 extends HttpServlet {
 
         controller.process(request, response);
         /*
-         * (중복 제거)
+         * 중복 제거:
          * 각 Controller 가 직접 View 로 보내는 것이 아니라 : dispatcher.forward(request, response),
-         * Controller 는 .jsp 만 알려주고, JSP 로 forward() 하는 클래스 도입
-         * -> FrontControllerServletV2 로 개선
+         * Controller 는 .jsp 만 알려주고 (View name 만 반환),
+         * JSP 로 forward() 하는 클래스 도입: MyView.
+         * => V2 로 개선
          */
     }
-
 
 }

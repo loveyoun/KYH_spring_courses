@@ -31,5 +31,4 @@ public class ResponseJsonServlet extends HttpServlet {
         response.getWriter().write(result);
     }
 
-
 }

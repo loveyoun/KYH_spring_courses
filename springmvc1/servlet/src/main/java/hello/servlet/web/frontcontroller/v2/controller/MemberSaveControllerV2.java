@@ -20,6 +20,7 @@ public class MemberSaveControllerV2 implements ControllerV2 {
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
 
+        // Service, Repository
         Member member = new Member(username, age);
         memberRepository.save(member);
 
@@ -28,6 +29,5 @@ public class MemberSaveControllerV2 implements ControllerV2 {
 
         return new MyView("/WEB-INF/views/save-result.jsp");
     }
-
 
 }

@@ -16,5 +16,4 @@ public class Member {
         this.age = age;
     }
 
-
 }

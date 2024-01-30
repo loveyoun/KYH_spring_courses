@@ -10,8 +10,7 @@ import java.io.IOException;
 
 /**
  * Controller
- **/
-
+ */
 @WebServlet(name = "mvcMemberFormServlet", urlPatterns = "/servlet-mvc/members/new-form")
 public class MvcMemberFormServlet extends HttpServlet {
 
@@ -22,6 +21,5 @@ public class MvcMemberFormServlet extends HttpServlet {
         dispatcher.forward(request, response);
         // 클라이언트로 다시 가는 redirect 와 다르다.
     }
-
 
 }

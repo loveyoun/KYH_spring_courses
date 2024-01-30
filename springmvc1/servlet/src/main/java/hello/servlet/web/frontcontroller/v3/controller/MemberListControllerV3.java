@@ -17,12 +17,10 @@ public class MemberListControllerV3 implements ControllerV3 {
     public ModelView process(Map<String, String> paramMap) {
         List<Member> members = memberRepository.findAll();
 
-        // @return : View 주소와 새로운 data(Model)
         ModelView mv = new ModelView("members");
         mv.getModel().put("members", members);
 
         return mv;
     }
-
 
 }

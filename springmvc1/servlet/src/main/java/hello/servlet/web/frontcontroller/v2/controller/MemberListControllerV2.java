@@ -28,5 +28,4 @@ public class MemberListControllerV2 implements ControllerV2 {
         return new MyView("/WEB-INF/views/members.jsp");
     }
 
-
 }

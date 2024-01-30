@@ -32,5 +32,4 @@ public class RequestBodyJsonServlet extends HttpServlet {
         response.getWriter().write("ok");
     }
 
-
 }

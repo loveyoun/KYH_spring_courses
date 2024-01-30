@@ -29,5 +29,4 @@ public class ModelView {
         this.model = model;
     }
 
-
 }

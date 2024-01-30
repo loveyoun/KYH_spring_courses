@@ -7,8 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@WebServlet(name = "helloServlet", urlPatterns = "/hello")
 // Servlet Mapping
-@WebServlet(name = "helloServlet", urlPatterns = "/hello")  // /hello 로 현재 서블릿이 호출되면, service() 가 자동 호출된다.
+// /hello 로 현재 서블릿이 호출되면, service() 가 자동 호출된다.
 public class HelloServlet extends HttpServlet {
 
     @Override
@@ -20,11 +21,9 @@ public class HelloServlet extends HttpServlet {
         String username = request.getParameter("username");
         System.out.println("username = " + username);
 
-
         response.setContentType("text/plain");   // Http Header Content-Type
         response.setCharacterEncoding("utf-8");  // Http Header Content-Type
         response.getWriter().write("hello " + username);  // HTTP body 에 들어가는 data
     }
-
 
 }

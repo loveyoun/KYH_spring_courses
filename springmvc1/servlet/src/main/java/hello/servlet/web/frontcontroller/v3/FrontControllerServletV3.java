@@ -17,11 +17,11 @@ import java.util.Map;
 
 /**
  * V3
- * 각 Controller 의 Controller 역할 중, Model 저장 역할 분리
- * 각 Controller : Service, Repository 역할
+ * 서블릿 종속성
+ * => Controller 역할 중, Http Request Message 저장 역할 분리
+ * 각 Controller : Service, Repository 역할, Model 생성: 역할 완성
  * FrontController : URL 분배, HTTP request to Model, Model to HTTP request, View 로 보내기
- **/
-
+ */
 @WebServlet(name = "frontControllerServletV3", urlPatterns = "/front-controller/v3/*")
 public class FrontControllerServletV3 extends HttpServlet {
 
@@ -53,7 +53,6 @@ public class FrontControllerServletV3 extends HttpServlet {
         view.render(mv.getModel(), request, response);
     }
 
-
     private Map<String, String> createParamMap(HttpServletRequest request) {
         Map<String, String> paramMap = new HashMap<>();
         request.getParameterNames().asIterator()
@@ -65,6 +64,5 @@ public class FrontControllerServletV3 extends HttpServlet {
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
-
 
 }

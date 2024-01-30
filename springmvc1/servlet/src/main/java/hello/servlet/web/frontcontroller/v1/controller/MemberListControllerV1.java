@@ -30,5 +30,4 @@ public class MemberListControllerV1 implements ControllerV1 {
         dispatcher.forward(request, response);
     }
 
-
 }

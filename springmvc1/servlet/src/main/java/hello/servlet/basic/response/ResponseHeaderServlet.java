@@ -59,5 +59,4 @@ public class ResponseHeaderServlet extends HttpServlet {
         response.sendRedirect("/basic/hello-form.html");
     }
 
-
 }
