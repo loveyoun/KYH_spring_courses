@@ -22,13 +22,6 @@ public class MemberRepositoryV1 {
     // 의존관계 주입
 
 
-    private Connection getConnection() throws SQLException {
-        Connection con = dataSource.getConnection();
-        log.info("get connection = {}, class = {}", con, con.getClass());
-
-        return con;
-    }
-
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
@@ -131,6 +124,13 @@ public class MemberRepositoryV1 {
             close(con, pstmt, null);
         }
 
+    }
+
+    private Connection getConnection() throws SQLException {
+        Connection con = dataSource.getConnection();
+        log.info("get connection = {}, class = {}", con, con.getClass());
+
+        return con;
     }
 
     private void close(Connection con, Statement stmt, ResultSet rs) {

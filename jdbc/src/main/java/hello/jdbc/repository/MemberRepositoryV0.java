@@ -13,36 +13,31 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class MemberRepositoryV0 {
 
-    private Connection getConnection() {
-        return DBConnectionUtil.getConnection();
-    }
-
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;  // DB 에 날릴 쿼리
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
 
-            // ? 에 데이터를 parameter-binding
-            // Statement: sql 문을 그대로 넣음
+            // PreparedStatement: ? 에 데이터를 parameter-binding.
+            // Statement: sql 문을 그대로 넣음.
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
 
-            pstmt.executeUpdate();  // query 가 DB 에서 실행
+            pstmt.executeUpdate();  // DB 에서 query 실행
 
             return member;
-        } catch (SQLException e) {  // SQLException (CheckException)
+        } catch (SQLException e) {  // SQLException (CheckedException)
             log.error("db error", e);
             throw e;
         } finally {  // 호출 보장
-//            pstmt.close();  // if Exception -> conn.close() 호출 안 됨
-            close(conn, pstmt, null);
-            // 외부 리소스인 TCP/IP connection 쓰는 중
+//            pstmt.close();  // if Exception -> con.close() 호출 안 됨
+            close(con, pstmt, null); // 외부 리소스인 TCP/IP connection 쓰는 중
         }
 
     }
@@ -50,14 +45,14 @@ public class MemberRepositoryV0 {
     public Member findById(String memberId) throws SQLException {
         String sql = "select * from member where member_id = ?";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;  // select query 로 조회 시 반환 결과 담는 자료구조
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
             rs = pstmt.executeQuery();
@@ -75,7 +70,7 @@ public class MemberRepositoryV0 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, rs);
+            close(con, pstmt, rs);
         }
 
     }
@@ -83,13 +78,13 @@ public class MemberRepositoryV0 {
     public void update(String memberId, int money) throws SQLException {
         String sql = "update member set money = ? where member_id = ?";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
 
@@ -99,7 +94,7 @@ public class MemberRepositoryV0 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, null);
+            close(con, pstmt, null);
         }
 
     }
@@ -107,13 +102,13 @@ public class MemberRepositoryV0 {
     public void delete(String memberId) throws SQLException {
         String sql = "delete from member where member_id = ?";
 
-        Connection conn = null;
+        Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
-            conn = getConnection();
+            con = getConnection();
 
-            pstmt = conn.prepareStatement(sql);
+            pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
             pstmt.executeUpdate();
@@ -121,11 +116,14 @@ public class MemberRepositoryV0 {
             log.error("db error", e);
             throw e;
         } finally {
-            close(conn, pstmt, null);
+            close(con, pstmt, null);
         }
 
     }
 
+    private Connection getConnection() {
+        return DBConnectionUtil.getConnection();
+    }
 
     private void close(Connection con, Statement stmt, ResultSet rs) {
         if (rs != null) {

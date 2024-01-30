@@ -4,12 +4,11 @@ import lombok.Data;
 
 import java.util.Objects;
 
-@Data  // ToString, EqualsAndHashCode 오버라이드
+@Data  // ToString(), EqualsAndHashCode() 오버라이드
 public class Member {
 
     private String memberId;
     private int money;
-
 
     public Member() {
     }

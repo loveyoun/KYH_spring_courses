@@ -19,7 +19,7 @@ public class DBConnectionUtil {
 
             return connection;
         } catch (SQLException e) {
-//            e.printStackTrace();  // CheckException
+//            e.printStackTrace();  // CheckedException
             throw new IllegalStateException(e);  // RuntimeException
         }
 

@@ -5,7 +5,6 @@ import hello.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
@@ -19,29 +18,31 @@ class MemberRepositoryV1Test {
 
     MemberRepositoryV1 repository;
 
+
     @BeforeEach
     void beforeEach() {
         // 기본 DriverManager - 항상 새로운 커넥션을 획득
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
 
-        //커넥션 풀링
+        // 커넥션 풀링
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(URL);
         dataSource.setUsername(USERNAME);
         dataSource.setPassword(PASSWORD);
 
+        // DI + OCP
         repository = new MemberRepositoryV1(dataSource);
     }
 
 
     /**
-     * 매번 getConnection() 하는 곳이 DataSource, Pool
+     * 매번 getConnection() 하는 곳이 DataSource -> Pool
      */
-
     @Test
     void crud() throws SQLException {
-        //save
         Member member = new Member("memberV100", 10000);
+
+        //save
         repository.save(member);
 
         //findById

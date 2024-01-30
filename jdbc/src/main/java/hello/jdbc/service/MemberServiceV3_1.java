@@ -27,8 +27,7 @@ public class MemberServiceV3_1 {
         TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
         try {
-            // 비즈니스 로직
-            bizLogic(fromId, toId, money);
+            bizLogic(fromId, toId, money); // 비즈니스 로직
 
             transactionManager.commit(status); // 성공시 커밋
         } catch (Exception e) {

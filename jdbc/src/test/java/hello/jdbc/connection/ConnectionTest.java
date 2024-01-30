@@ -16,7 +16,8 @@ import static hello.jdbc.connection.ConnectionConst.*;
 public class ConnectionTest {
 
     @Test
-    void driverManager() throws SQLException {  // SQLException 을 밖으로 throw(s) 하거나 catch 하거나
+    void driverManager() throws SQLException {
+        // SQLException 을 밖으로 throws 하거나 catch 하거나
         Connection con1 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         Connection con2 = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         log.info("connection = {}, class = {}", con1, con1.getClass());
@@ -27,17 +28,17 @@ public class ConnectionTest {
     /**
      * DataSource
      */
-
     @Test
     void dataSourceDriverManager() throws SQLException {
-        //DriverManagerDataSource - 항상 새로운 커넥션을 획득
+        // DriverManagerDataSource - 항상 새로운 커넥션을 획득
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
+
         useDataSource(dataSource);
     }
 
     @Test
     void dataSourceConnectionPool() throws SQLException, InterruptedException {
-        //커넥션 풀링
+        // 커넥션 풀링: HikariProxyConnection(Proxy) -> JdbcConnection(Target)
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl(URL);
         dataSource.setUsername(USERNAME);
@@ -48,7 +49,6 @@ public class ConnectionTest {
         useDataSource(dataSource);
         Thread.sleep(1000);
     }
-
 
     private void useDataSource(DataSource dataSource) throws SQLException {
         Connection con1 = dataSource.getConnection();

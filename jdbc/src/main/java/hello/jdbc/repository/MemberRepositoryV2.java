@@ -14,18 +14,12 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class MemberRepositoryV2 {
 
-    private final DataSource dataSource;
+    private final DataSource dataSource;  // save(), delete() 위해서 남겨둠.
 
     public MemberRepositoryV2(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-
-    private Connection getConnection() throws SQLException {
-        Connection con = dataSource.getConnection();
-        log.info("get connection = {}, class = {}", con, con.getClass());
-        return con;
-    }
 
     public Member save(Member member) throws SQLException {
         String sql = "insert into member(member_id, money) values (?, ?)";
@@ -35,10 +29,13 @@ public class MemberRepositoryV2 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
+
             pstmt.executeUpdate();
+
             return member;
         } catch (SQLException e) {
             log.error("db error", e);
@@ -61,6 +58,7 @@ public class MemberRepositoryV2 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
@@ -69,6 +67,7 @@ public class MemberRepositoryV2 {
                 Member member = new Member();
                 member.setMemberId(rs.getString("member_id"));
                 member.setMoney(rs.getInt("money"));
+
                 return member;
             } else {
                 throw new NoSuchElementException("member not found memberId = " + memberId);
@@ -85,7 +84,7 @@ public class MemberRepositoryV2 {
 
     /**
      * ManualCommit ver.
-     * 외부에서 Conn 주입.
+     * 외부에서 Con 주입.
      *
      * @파라미터 Connection
      */
@@ -104,6 +103,7 @@ public class MemberRepositoryV2 {
                 Member member = new Member();
                 member.setMemberId(rs.getString("member_id"));
                 member.setMoney(rs.getInt("money"));
+
                 return member;
             } else {
                 throw new NoSuchElementException("member not found memberId = " + memberId);
@@ -128,9 +128,11 @@ public class MemberRepositoryV2 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
+
             int resultSize = pstmt.executeUpdate();
             log.info("resultSize = {}", resultSize);
         } catch (SQLException e) {
@@ -144,6 +146,7 @@ public class MemberRepositoryV2 {
 
     /**
      * ManualCommit ver.
+     *
      * @파라미터 Connection
      */
     public void update(Connection con, String memberId, int money) throws SQLException {
@@ -153,8 +156,10 @@ public class MemberRepositoryV2 {
 
         try {
             pstmt = con.prepareStatement(sql);
+
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
+
             int resultSize = pstmt.executeUpdate();
             log.info("resultSize = {}", resultSize);
         } catch (SQLException e) {
@@ -175,8 +180,10 @@ public class MemberRepositoryV2 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             log.error("db error", e);
@@ -185,6 +192,13 @@ public class MemberRepositoryV2 {
             close(con, pstmt, null);
         }
 
+    }
+
+    private Connection getConnection() throws SQLException {
+        Connection con = dataSource.getConnection();
+        log.info("get connection = {}, class = {}", con, con.getClass());
+
+        return con;
     }
 
     private void close(Connection con, Statement stmt, ResultSet rs) {

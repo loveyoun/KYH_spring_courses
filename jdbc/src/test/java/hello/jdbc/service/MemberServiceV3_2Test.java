@@ -13,7 +13,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import java.sql.SQLException;
 
 import static hello.jdbc.connection.ConnectionConst.*;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
@@ -32,9 +31,9 @@ class MemberServiceV3_2Test {
     @BeforeEach
     void before() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
-        memberRepository = new MemberRepositoryV3(dataSource);
-
         PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
+
+        memberRepository = new MemberRepositoryV3(dataSource);
         memberService = new MemberServiceV3_2(transactionManager, memberRepository);
     }
 

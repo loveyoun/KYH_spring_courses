@@ -24,20 +24,22 @@ public class MemberServiceV2 {
      * 수동 커밋
      */
     public void accountTransfer(String fromId, String toId, int money) throws SQLException {
-        Connection conn = dataSource.getConnection(); // SQLException
+        // 서비스 계층에서 커넥션을 만들고,
+        Connection con = dataSource.getConnection(); // SQLException
 
+        // 트랜잭션은 비즈니스 로직이 있는 서비스 계층에서 시작해야
         // 트랜잭션 처리 Logic
         try {
-            conn.setAutoCommit(false);  // 트랜잭션 시작
+            con.setAutoCommit(false);  // 트랜잭션 시작
 
-            busiLogic(conn, fromId, toId, money); // 순수 비즈니스 Logic
+            busiLogic(con, fromId, toId, money); // 순수 비즈니스 Logic
 
-            conn.commit();   // 성공시 커밋
+            con.commit();   // 성공시 커밋
         } catch (Exception e) {
-            conn.rollback(); // 실패시 롤백. SQLException
+            con.rollback(); // 실패시 롤백. SQLException
             throw new IllegalStateException(e); // throw e;
         } finally {
-            release(conn);
+            release(con);
         }
 
     }
@@ -66,7 +68,6 @@ public class MemberServiceV2 {
             } catch (Exception e) {
                 log.info("error", e);
             }
-
         }
 
     }

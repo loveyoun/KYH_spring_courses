@@ -18,15 +18,16 @@ class MemberRepositoryV0Test {
 
     @Test
     void crud() throws SQLException {  // 매번 getConnection()
-        //save
         Member member = new Member("memberV100", 10000);
+
+        //save
         repository.save(member);
 
         //findById
         Member findMember = repository.findById(member.getMemberId());
         log.info("findMember = {}", findMember);
         log.info("member != findMember {}", member == findMember);
-        // 다른 인스턴스. false
+        // 다른 인스턴스. false ?????
 
         assertThat(findMember).isEqualTo(member);
 

@@ -31,11 +31,14 @@ public class MemberRepositoryV3 {
         PreparedStatement pstmt = null;
 
         try {
-            con = getConnection();
+            con = getConnection(); // 커넥션 동기화됨. DataSourceUtils.
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, member.getMemberId());
             pstmt.setInt(2, member.getMoney());
+
             pstmt.executeUpdate();
+
             return member;
         } catch (SQLException e) {
             log.error("db error", e);
@@ -55,6 +58,7 @@ public class MemberRepositoryV3 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
 
@@ -63,6 +67,7 @@ public class MemberRepositoryV3 {
                 Member member = new Member();
                 member.setMemberId(rs.getString("member_id"));
                 member.setMoney(rs.getInt("money"));
+
                 return member;
             } else {
                 throw new NoSuchElementException("member not found memberId = " + memberId);
@@ -85,9 +90,11 @@ public class MemberRepositoryV3 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, money);
             pstmt.setString(2, memberId);
+
             int resultSize = pstmt.executeUpdate();
             log.info("resultSize={}", resultSize);
         } catch (SQLException e) {
@@ -107,8 +114,10 @@ public class MemberRepositoryV3 {
 
         try {
             con = getConnection();
+
             pstmt = con.prepareStatement(sql);
             pstmt.setString(1, memberId);
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             log.error("db error", e);
@@ -122,15 +131,17 @@ public class MemberRepositoryV3 {
     private void close(Connection con, Statement stmt, ResultSet rs) {
         JdbcUtils.closeResultSet(rs);
         JdbcUtils.closeStatement(stmt);
-        // 주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils 를 사용해야 한다.
+
         DataSourceUtils.releaseConnection(con, dataSource);
     }
 
 
     private Connection getConnection() throws SQLException {
         // 주의! 트랜잭션 동기화를 사용하려면 DataSourceUtils 를 사용해야 한다.
+        // org.springframework.jdbc.datasource.DataSourceUtils
         Connection con = DataSourceUtils.getConnection(dataSource);
         log.info("get connection = {}, class = {}", con, con.getClass());
+
         return con;
     }
 
