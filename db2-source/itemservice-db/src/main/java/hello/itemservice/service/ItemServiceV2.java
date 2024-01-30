@@ -20,6 +20,7 @@ public class ItemServiceV2 implements ItemService {
     private final ItemRepositoryV2 itemRepositoryV2;
     private final ItemQueryRepositoryV2 itemQueryRepositoryV2;
 
+
     @Override
     public Item save(Item item) {
         return itemRepositoryV2.save(item);
@@ -42,4 +43,5 @@ public class ItemServiceV2 implements ItemService {
     public List<Item> findItems(ItemSearchCond cond) {
         return itemQueryRepositoryV2.findAll(cond);
     }
+
 }

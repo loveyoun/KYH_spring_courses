@@ -12,17 +12,18 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-                       public class ItemServiceV1 implements ItemService {
+public class ItemServiceV1 implements ItemService {
 
-        private final ItemRepository itemRepository;
+    private final ItemRepository itemRepository; // 로 거의 다 위임.
 
-        @Override
-        public Item save(Item item) {
-            return itemRepository.save(item);
-        }
 
-        @Override
-        public void update(Long itemId, ItemUpdateDto updateParam) {
+    @Override
+    public Item save(Item item) {
+        return itemRepository.save(item);
+    }
+
+    @Override
+    public void update(Long itemId, ItemUpdateDto updateParam) {
         itemRepository.update(itemId, updateParam);
     }
 
@@ -35,4 +36,5 @@ import java.util.Optional;
     public List<Item> findItems(ItemSearchCond cond) {
         return itemRepository.findAll(cond);
     }
+
 }

@@ -15,4 +15,5 @@ public class ItemSearchCond {
         this.itemName = itemName;
         this.maxPrice = maxPrice;
     }
+
 }

@@ -26,27 +26,30 @@ class ItemRepositoryTest {
     @Autowired
     ItemRepository itemRepository;
 
-/*
+
+    /*
     @Autowired
     PlatformTransactionManager transactionManager;
     TransactionStatus status;
 
     @BeforeEach
     void beforeEach() {
-        //트랜잭션 시작
+        // 트랜잭션 시작
         status = transactionManager.getTransaction(new DefaultTransactionDefinition());
     }
-*/
+    */
 
     @AfterEach
     void afterEach() {
-        //MemoryItemRepository 의 경우 제한적으로 사용
+        // MemoryItemRepository 의 경우 제한적으로 사용
         if (itemRepository instanceof MemoryItemRepository) {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
-        //트랜잭션 롤백
-        //transactionManager.rollback(status);
+
+        // 트랜잭션 롤백
+//        transactionManager.rollback(status);
     }
+
 
     @Test
     void save() {
@@ -109,6 +112,7 @@ class ItemRepositoryTest {
 
     void test(String itemName, Integer maxPrice, Item... items) {
         List<Item> result = itemRepository.findAll(new ItemSearchCond(itemName, maxPrice));
-        assertThat(result).containsExactly(items);
+        assertThat(result).containsExactly(items); // 순서도 맞아야.
     }
+
 }

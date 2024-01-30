@@ -13,6 +13,6 @@ public interface ItemRepository {
 
     Optional<Item> findById(Long id);
 
-    List<Item> findAll(ItemSearchCond cond);
+    List<Item> findAll(ItemSearchCond cond); // 검색 조건으로 List 뽑기.
 
 }

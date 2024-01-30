@@ -16,4 +16,5 @@ public interface ItemService {
     Optional<Item> findById(Long id);
 
     List<Item> findItems(ItemSearchCond itemSearch);
+
 }

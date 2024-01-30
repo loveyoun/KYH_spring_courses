@@ -19,20 +19,28 @@ public class ItemController {
 
     private final ItemService itemService;
 
+
     @GetMapping
     public String items(@ModelAttribute("itemSearch") ItemSearchCond itemSearch, Model model) {
         List<Item> items = itemService.findItems(itemSearch);
+
         model.addAttribute("items", items);
+
         return "items";
     }
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
+
         model.addAttribute("item", item);
+
         return "item";
     }
 
+    /**
+     * 등록
+     */
     @GetMapping("/add")
     public String addForm() {
         return "addForm";
@@ -40,22 +48,32 @@ public class ItemController {
 
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
+        // @ModelAttribute: item = new Item() -> setXxx() 자동.
+
         Item savedItem = itemService.save(item);
+
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
+
         return "redirect:/items/{itemId}";
     }
 
+    /**
+     * 수정
+     */
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
+
         model.addAttribute("item", item);
+
         return "editForm";
     }
 
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, @ModelAttribute ItemUpdateDto updateParam) {
         itemService.update(itemId, updateParam);
+
         return "redirect:/items/{itemId}";
     }
 
