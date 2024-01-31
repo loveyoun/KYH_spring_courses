@@ -16,11 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * V3
  * 서블릿 종속성
- * => Controller 역할 중, Http Request Message 저장 역할 분리
- * 각 Controller : Service, Repository 역할, Model 생성: 역할 완성
- * FrontController : URL 분배, HTTP request to Model, Model to HTTP request, View 로 보내기
+ * => Http Request Message parsing 역할 분리
+ * 각 Controller: Controller(Model 생성) + Service + Repository 역할
+ * FrontController: URL 분배, HTTP request parse, Controller 호출, View 로 보내기
  */
 @WebServlet(name = "frontControllerServletV3", urlPatterns = "/front-controller/v3/*")
 public class FrontControllerServletV3 extends HttpServlet {
@@ -36,7 +35,7 @@ public class FrontControllerServletV3 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestURI = request.getRequestURI();   // new-form, save, _ 중
+        String requestURI = request.getRequestURI();
 
         ControllerV3 controller = controllerMap.get(requestURI);
         if (controller == null) {
@@ -44,7 +43,6 @@ public class FrontControllerServletV3 extends HttpServlet {
             return;
         }
 
-        // Model 에 저장 역할
         Map<String, String> paramMap = createParamMap(request);
         ModelView mv = controller.process(paramMap);
 

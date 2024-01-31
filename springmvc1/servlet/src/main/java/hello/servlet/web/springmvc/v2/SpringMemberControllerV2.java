@@ -46,5 +46,4 @@ public class SpringMemberControllerV2 {
         return mav;
     }
 
-
 }

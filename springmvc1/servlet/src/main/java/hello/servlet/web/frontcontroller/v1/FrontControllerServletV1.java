@@ -14,13 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * V1
- * FrontController 도입 : URL 배분
- * 아직 각 Controller : Service, Repository 역할 + Controller(View 로 보내고 Model 에 저장) 역할
+ * servletmvc
+ * => FrontController 도입 : URL 배분
+ * 각 Controller: Controller(Http parseing, Model 에 저장, View 로 보내고) + Service + Repository 역할
  */
-// /front-controller/v1/~~~ 요청오면 일단 이거 호출
 @WebServlet(name = "frontControllerServletV1", urlPatterns = "/front-controller/v1/*")
-public class FrontControllerServletV1 extends HttpServlet {
+public class FrontControllerServletV1 extends HttpServlet { // /front-controller/v1/~~~ 요청오면 이거 호출
 
     private final Map<String, ControllerV1> controllerMap = new HashMap<>();
 
@@ -36,7 +35,7 @@ public class FrontControllerServletV1 extends HttpServlet {
         System.out.println("FrontControllerServletV1.service");
 
         // key = url, value = 구현체
-        String requestURI = request.getRequestURI();
+        String requestURI = request.getRequestURI();  // 추가
 
         // 다형성
         ControllerV1 controller = controllerMap.get(requestURI);
@@ -45,15 +44,7 @@ public class FrontControllerServletV1 extends HttpServlet {
             return;
         }
 
-
         controller.process(request, response);
-        /*
-         * 중복 제거:
-         * 각 Controller 가 직접 View 로 보내는 것이 아니라 : dispatcher.forward(request, response),
-         * Controller 는 .jsp 만 알려주고 (View name 만 반환),
-         * JSP 로 forward() 하는 클래스 도입: MyView.
-         * => V2 로 개선
-         */
     }
 
 }

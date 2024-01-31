@@ -20,10 +20,8 @@ public class MemberSaveControllerV4 implements ControllerV4 {
         memberRepository.save(member);
 
         /**
-         * @return
-         * View 주소와 새로운 data(Model) ->
-         * View 주소만,
-         * 새로운 data 는 @param 에 Model 참조값으로
+         * @return View 주소만
+         * @param  Model 참조값에 결과 데이터 저장
          */
         model.put("member", member);
 

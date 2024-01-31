@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-//Controller
 @WebServlet(name = "mvcMemberListServlet", urlPatterns = "/servlet-mvc/members")
 public class MvcMemberListServlet extends HttpServlet {
 
@@ -27,7 +26,7 @@ public class MvcMemberListServlet extends HttpServlet {
         // Model
         request.setAttribute("members", members);
 
-        // View 로.
+        // View
         String viewPath = "/WEB-INF/views/members.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);

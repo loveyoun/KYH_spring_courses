@@ -30,20 +30,19 @@ public class RequestBodyStringController {
         response.getWriter().write("ok");
     }
 
-
     @PostMapping("/request-body-string-v2")
     public void requestBodyStringV2(InputStream inputStream, Writer responseWriter) throws IOException {
         String messageBody = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
         log.info("messageBody={}", messageBody);
+
         responseWriter.write("ok");
     }
-
 
     @PostMapping("/request-body-string-v3")
     public HttpEntity<String> requestBodyStringV3(HttpEntity<String> httpEntity) throws IOException {
         String messageBody = httpEntity.getBody();
-
         log.info("messageBody={}", messageBody);
+
         return new HttpEntity<>("ok");
     }
 
@@ -51,8 +50,8 @@ public class RequestBodyStringController {
     @PostMapping("/request-body-string-v4")
     public String requestBodyStringV4(@RequestBody String messageBody) {
         log.info("messageBody={}", messageBody);
+
         return "ok";
     }
-
 
 }

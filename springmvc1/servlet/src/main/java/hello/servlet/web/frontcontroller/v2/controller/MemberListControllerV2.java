@@ -18,11 +18,8 @@ public class MemberListControllerV2 implements ControllerV2 {
 
     @Override
     public MyView process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Service, Repository
         List<Member> members = memberRepository.findAll();
 
-        // Controller
-        // Model 에 데이터를 보관한다.
         request.setAttribute("members", members);
 
         return new MyView("/WEB-INF/views/members.jsp");

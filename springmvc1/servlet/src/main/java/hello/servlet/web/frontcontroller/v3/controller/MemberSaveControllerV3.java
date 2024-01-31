@@ -13,8 +13,8 @@ public class MemberSaveControllerV3 implements ControllerV3 {
 
 
     /**
-     * param: Http Request Message
-     * return: View 주소와 새로운 data (Model)
+     * @param: parsed Http Request Message
+     * @return: View 주소와 새로운 data (Model)
      */
     @Override
     public ModelView process(Map<String, String> paramMap) {
@@ -24,6 +24,7 @@ public class MemberSaveControllerV3 implements ControllerV3 {
         Member member = new Member(username, age);
         memberRepository.save(member);
 
+        // Model 생성
         ModelView mv = new ModelView("save-result");
         mv.getModel().put("member", member);
 

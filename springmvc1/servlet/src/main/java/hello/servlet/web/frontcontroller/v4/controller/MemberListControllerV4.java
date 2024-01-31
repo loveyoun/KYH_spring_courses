@@ -16,6 +16,7 @@ public class MemberListControllerV4 implements ControllerV4 {
     public String process(Map<String, String> paramMap, Map<String, Object> model) {
         List<Member> members = memberRepository.findAll();
 
+        // Model 에 저장
         model.put("members", members);
 
         return "members";

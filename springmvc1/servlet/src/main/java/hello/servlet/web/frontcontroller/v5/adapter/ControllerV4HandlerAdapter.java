@@ -11,13 +11,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ControllerV4 지원 Adapter
- * == 그냥 ControllerV4 대행. Model 보내주고, Model, View 반환.
- * FrontController ↔ ControllerV4 ->
- * FrontController ↔ Adapter ↔ ControllerV4
- **/
-
 public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
     @Override
@@ -27,17 +20,14 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
     @Override
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
-        ControllerV4 controller = (ControllerV4) handler;
+        ControllerV4 controller = (ControllerV4) handler; // 변경
 
         Map<String, String> paramMap = createParamMap(request);
         HashMap<String, Object> model = new HashMap<>();
 
         String viewName = controller.process(paramMap, model);
 
-        /**
-         * 110V -> 220V
-         **/
-        ModelView mv = new ModelView(viewName);
+        ModelView mv = new ModelView(viewName); // 추가
         mv.setModel(model);
 
         return mv;
@@ -51,6 +41,5 @@ public class ControllerV4HandlerAdapter implements MyHandlerAdapter {
 
         return paramMap;
     }
-
 
 }

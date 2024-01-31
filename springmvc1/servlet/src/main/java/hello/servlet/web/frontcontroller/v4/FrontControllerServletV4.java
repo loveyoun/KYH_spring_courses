@@ -15,9 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * V4
- * FrontController : Model 생성해서 참조 값 공유.
- * Model 을 주고받지 않아도 됨.
+ * ModelView = Model 생성 + ViewName 전달
+ * => FrontController 에서 Model 생성해서 참조 값 공유.
+ * 각 Controller: Service + Repository 역할
+ * FrontController: URL 분배, HTTP request parse, Model 생성, Controller 호출, View 로 보내기
+ *
+ * 스프링 MVC 와 가장 유사.
  */
 @WebServlet(name = "frontControllerServletV4", urlPatterns = "/front-controller/v4/*")
 public class FrontControllerServletV4 extends HttpServlet {
@@ -41,10 +44,9 @@ public class FrontControllerServletV4 extends HttpServlet {
         }
 
         Map<String, String> paramMap = createParamMap(request);
-
         Map<String, Object> model = new HashMap<>();  // 추가
 
-        // Controller 호출, Model 에 저장 역할
+        // Controller 호출
         String viewName = controller.process(paramMap, model);
 
         // View 로 보내는 역할

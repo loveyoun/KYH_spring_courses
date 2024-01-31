@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * HandlerMapping 구현체 중, BeanNameUrlHandlerMapping 의 부모 등으로 이거 찾음
- * -> HandlerAdapter 의 구현체 중, SimpleControllerHandlerAdapter.handle() : 이거 실행
- * return ((Controller) handler).handleRequest(request, response);
+ * -> HandlerAdapter 의 구현체 중, SimpleControllerHandlerAdapter.handle() 실행
+ * -> ((Controller) handler).handleRequest(request, response) 호출
  * -> ViewResolver 구현체 중, InternalResourceViewResolver.buildView()
  * -> InternalResourceView
  */
 
-// @Controller 말고, HandlerMapping 을 따로 해주기
-// SpringBean 이름을 URL 패턴으로
 @Component("/springmvc/old-controller")
 public class OldController implements Controller {
 

@@ -22,7 +22,7 @@ public class MyView {
         dispatcher.forward(request, response);  // JSP 자동 렌더링
     }
 
-    // V3
+    // V3, V4
     public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Model to HTTP request
         /*

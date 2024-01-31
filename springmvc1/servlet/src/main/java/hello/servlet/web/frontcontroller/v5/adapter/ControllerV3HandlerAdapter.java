@@ -11,12 +11,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ControllerV3 지원 Adapter
- * == 그냥 ControllerV3 대행. HTTP 보내주고, 결과 Model, View 반환.
- * FrontController ↔ ControllerV3 ->
- * FrontController ↔ Adapter ↔ ControllerV3
- **/
 public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
     @Override
@@ -26,7 +20,7 @@ public class ControllerV3HandlerAdapter implements MyHandlerAdapter {
 
     @Override
     public ModelView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws ServletException, IOException {
-        ControllerV3 controller = (ControllerV3) handler;
+        ControllerV3 controller = (ControllerV3) handler; // 변경
 
         Map<String, String> paramMap = createParamMap(request);
 

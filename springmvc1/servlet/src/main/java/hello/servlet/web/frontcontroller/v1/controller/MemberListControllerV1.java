@@ -21,8 +21,6 @@ public class MemberListControllerV1 implements ControllerV1 {
         // Service, Repository
         List<Member> members = memberRepository.findAll();
 
-        // Controller
-        // Model 에 데이터를 보관한다.
         request.setAttribute("members", members);
 
         String viewPath = "/WEB-INF/views/members.jsp";

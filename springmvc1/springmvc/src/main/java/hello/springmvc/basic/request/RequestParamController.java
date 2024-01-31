@@ -17,14 +17,17 @@ import java.util.Map;
 @Controller
 public class RequestParamController {
 
-    // /basic/hello-form.html
+    /**
+     * 반환 타입이 없으면서 이렇게 응답에 값을 직접 집어넣으면, view 조회X
+     */
     @RequestMapping("/request-param-v1")
     public void requestParamV1(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
-
         log.info("username={}, age={}", username, age);
+
         response.getWriter().write("ok");
+        // /basic/hello-form.html
     }
 
     @ResponseBody  // == @RestController
@@ -32,7 +35,10 @@ public class RequestParamController {
     public String requestParamV2(@RequestParam("username") String memberName,
                                  @RequestParam("age") int memberAge) {
         log.info("username={}, age={}", memberName, memberAge);
-        return "ok";  // @Controller : View 를 조회한다.
+
+        return "ok";
+        // @Controller: View 를 조회한다.
+        // @ResponseBody: View Name 무시.
     }
 
     @ResponseBody
@@ -40,6 +46,7 @@ public class RequestParamController {
     public String requestParamV3(@RequestParam String username,
                                  @RequestParam int age) {
         log.info("username={}, age={}", username, age);
+
         return "ok";
     }
 
@@ -47,9 +54,9 @@ public class RequestParamController {
     @RequestMapping("/request-param-v4")
     public String requestParamV4(String username, int age) {
         log.info("username={}, age={}", username, age);
+
         return "ok";
     }
-
 
     @ResponseBody
     @RequestMapping("/request-param-required")
@@ -61,10 +68,12 @@ public class RequestParamController {
          *
          * {"status" : 500,
          * "error" : "Internal Server Error"}
+         *
          * int could not be null
          * Integer could be null
          */
         log.info("username={}, age={}", username, age);
+
         return "ok";
     }
 
@@ -74,23 +83,24 @@ public class RequestParamController {
     public String requestParamDefault(@RequestParam(required = true, defaultValue = "guest") String username,
                                       @RequestParam(required = false, defaultValue = "-1") int age) {
         log.info("username={}, age={}", username, age);
+
         return "ok";
     }
-
 
     @ResponseBody
     @RequestMapping("/request-param-map")
     public String requestParamMap(@RequestParam Map<String, Object> paramMap) {
         log.info("username={}, age={}", paramMap.get("username"), paramMap.get("age"));
+
         return "ok";
     }
-
 
     @ResponseBody
     @RequestMapping("/model-attribute-v1")
     public String modelAttributeV1(@ModelAttribute HelloData helloData) {
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
-        log.info("helloData={}", helloData);  // @ToString() 있어서
+        log.info("helloData={}", helloData);  // @ToString()
+
         return "ok";
     }
 
@@ -98,8 +108,8 @@ public class RequestParamController {
     @RequestMapping("/model-attribute-v2")
     public String modelAttributeV2(HelloData helloData) {
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+
         return "ok";
     }
-
 
 }

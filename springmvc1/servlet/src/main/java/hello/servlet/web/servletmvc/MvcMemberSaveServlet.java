@@ -1,6 +1,5 @@
 package hello.servlet.web.servletmvc;
 
-
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
 
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Service, Repository
- */
 @WebServlet(name = "mvcMemberSaveServlet", urlPatterns = "/servlet-mvc/members/save")
 public class MvcMemberSaveServlet extends HttpServlet {
 
@@ -23,6 +19,7 @@ public class MvcMemberSaveServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // HttpRequestMessage parsing.
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
 

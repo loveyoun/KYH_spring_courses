@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * FrontControllerV3 =
- * FrontControllerV5 + ControllerAdapter
- **/
-
+ * 각 Controller: Service + Repository 역할
+ * FrontController: Adapter 분배, {URL 분배, HTTP request parse, Model 생성, Controller 호출}, View 로 보내기
+ * Adapter: {}
+ */
 @WebServlet(name = "frontControllerServletV5", urlPatterns = "/front-controller/v5/*")
 public class FrontControllerServletV5 extends HttpServlet {
 
@@ -58,17 +58,20 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Object handler = getHandler(request); // == Controller
+        Object handler = getHandler(request);  // Controller 반환.
         if (handler == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
+        // Controller 로 Adapter 찾아서 반환
 
-        // Model 에 저장 역할 + controller.process() 대신,
+        // 앞 FrontController: Adapter
+        // @return ModelView
         ModelView mv = adapter.handle(request, response, handler);
 
+        // 뒤 FrontController
         // View 로 보내는 역할
         MyView view = viewResolver(mv.getViewName());
         view.render(mv.getModel(), request, response);
@@ -81,8 +84,9 @@ public class FrontControllerServletV5 extends HttpServlet {
 
     private MyHandlerAdapter getHandlerAdapter(Object handler) {
         for (MyHandlerAdapter adapter : handlerAdapters) {
-            if (adapter.supports(handler))
+            if (adapter.supports(handler)) {
                 return adapter;
+            }
         }
 
         throw new IllegalArgumentException("handler adapter 를 찾을 수 없습니다. handler =" + handler);
@@ -91,7 +95,6 @@ public class FrontControllerServletV5 extends HttpServlet {
     private MyView viewResolver(String viewName) {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
-
 
 }
 

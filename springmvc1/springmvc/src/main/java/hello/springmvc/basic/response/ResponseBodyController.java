@@ -27,7 +27,7 @@ public class ResponseBodyController {
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
-//    @ResponseBody
+    //@ResponseBody
     @GetMapping("/response-body-string-v3")
     public String responseBodyV3() {
         return "ok";
@@ -38,18 +38,19 @@ public class ResponseBodyController {
         HelloData helloData = new HelloData();
         helloData.setUsername("userA");
         helloData.setAge(20);
+
         return new ResponseEntity<>(helloData, HttpStatus.OK);
     }
 
     @ResponseStatus(HttpStatus.OK)
-//    @ResponseBody
+    //@ResponseBody
     @GetMapping("/response-body-json-v2")
     public HelloData responseBodyJsonV2() {
         HelloData helloData = new HelloData();
         helloData.setUsername("userA");
         helloData.setAge(20);
+
         return helloData;
     }
-
 
 }

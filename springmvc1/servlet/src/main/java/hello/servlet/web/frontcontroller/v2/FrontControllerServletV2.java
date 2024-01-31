@@ -15,10 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * V2
- * 모든 컨트롤러에서 뷰로 이동하는 부분에 중복
- * => Controller 역할 중, View 로 forward 역할 분리
- * 각 Controller : Service, Repository 역할 + Controller(Model 에 저장) 역할
+ * 컨트롤러에서 직접 뷰로 이동하는 부분 중복
+ * => View 로 forward 역할 분리. JSP 로 forward() 하는 클래스 도입: MyView.
+ * 각 Controller: Controller(Http parsing, Model 에 저장) + Service + Repository 역할
  */
 @WebServlet(name = "frontControllerServletV2", urlPatterns = "/front-controller/v2/*")
 public class FrontControllerServletV2 extends HttpServlet {
@@ -42,11 +41,10 @@ public class FrontControllerServletV2 extends HttpServlet {
             return;
         }
 
-        // Controller 역할 (Service, Repository, Model)
-        MyView view = controller.process(request, response);
+        MyView view = controller.process(request, response); // viewName -> MyView
 
         // View 역할
-        view.render(request, response);
+        view.render(request, response); // 추가
     }
 
 }

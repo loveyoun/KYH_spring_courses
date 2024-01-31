@@ -37,7 +37,7 @@ public class RequestBodyJsonController {
         HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
 
-        response.getWriter().write("ok");
+        response.getWriter().write("ok"); // == @ResponseBody
     }
 
     @ResponseBody
@@ -47,6 +47,7 @@ public class RequestBodyJsonController {
 
         HelloData helloData = objectMapper.readValue(messageBody, HelloData.class);
         log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        // == @RequestBody HelloData data, HttpEntity<HelloData> httpEntity
 
         return "ok";
     }
@@ -55,6 +56,7 @@ public class RequestBodyJsonController {
     @PostMapping("/request-body-json-v3")
     public String requestBodyJsonV3(@RequestBody HelloData data) {
         log.info("username={}, age={}", data.getUsername(), data.getAge());
+
         return "ok";
     }
 
@@ -63,6 +65,7 @@ public class RequestBodyJsonController {
     public String requestBodyJsonV4(HttpEntity<HelloData> httpEntity) {
         HelloData data = httpEntity.getBody();
         log.info("username={}, age={}", data.getUsername(), data.getAge());
+
         return "ok";
     }
 
@@ -70,8 +73,8 @@ public class RequestBodyJsonController {
     @PostMapping("/request-body-json-v5")
     public HelloData requestBodyJsonV5(@RequestBody HelloData data) {
         log.info("username={}, age={}", data.getUsername(), data.getAge());
+
         return data;
     }
-
 
 }

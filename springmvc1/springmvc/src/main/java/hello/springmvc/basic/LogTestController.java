@@ -1,5 +1,6 @@
 package hello.springmvc.basic;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class LogTestController {
         log.trace(" trace my log=" + name);
 
         // parameter 넘기기
-        // == if(log.isTraceEnabled()) {}
+        // f(log.isTraceEnabled()) {}
         log.trace("trace log={}", name);  // 로컬 서버
         log.debug("debug log={}", name);  // 개발 서버에서 필요한 정보
         log.info(" info log={}", name);   // 운영 서버
@@ -31,6 +32,5 @@ public class LogTestController {
 
         return "ok";
     }
-
 
 }

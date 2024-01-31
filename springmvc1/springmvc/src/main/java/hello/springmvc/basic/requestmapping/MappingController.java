@@ -25,13 +25,8 @@ public class MappingController {
     }
 
     /**
-     * 편리한 축약 애노테이션 (코드보기)
-     *
-     * @GetMapping
-     * @PostMapping
-     * @PutMapping
-     * @DeleteMapping
-     * @PatchMapping
+     * 편리한 축약 애노테이션
+     * Get, Post, Put, Delete, Patch
      */
     @GetMapping(value = "/mapping-get-v2")
     public String mappingGetV2() {
@@ -40,14 +35,10 @@ public class MappingController {
     }
 
     /**
-     * PathVariable 사용
-     * 변수명이 같으면 생략 가능
-     *
-     * @PathVariable("userId") String userId -> @PathVariable userId
-     * /mapping/userA
+     * @PathVariable 변수명이 같으면 생략 가능
      */
     @GetMapping("/mapping/{userId}")
-    public String mappingPath(@PathVariable("userId") String data) {
+    public String mappingPath(@PathVariable("userId") String data) { // == @PathVariable userId
         log.info("mappingPath userId={}", data);
         return "ok";
     }
@@ -64,7 +55,6 @@ public class MappingController {
     /**
      * 파라미터로 추가 매핑
      * PathVariable 을 사용해서 잘 사용하지 않는다.
-     * <p>
      * {"status" : 400,
      * "error" : "Bad Request"}
      * <p>
@@ -95,7 +85,6 @@ public class MappingController {
 
     /**
      * Content-Type 헤더 기반 추가 매핑 Media Type
-     * <p>
      * consumes="application/json"
      * consumes="!application/json"
      * consumes="application/*"
@@ -124,6 +113,5 @@ public class MappingController {
         log.info("mappingProduces");
         return "ok";
     }
-
 
 }
