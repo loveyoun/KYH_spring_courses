@@ -1,7 +1,6 @@
 package hello.itemservice;
 
-import hello.itemservice.config.JdbcTemplateV3Config;
-import hello.itemservice.config.V2Config;
+import hello.itemservice.config.*;
 import hello.itemservice.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -15,14 +14,7 @@ import javax.sql.DataSource;
 
 @Slf4j
 //@Import(MemoryConfig.class)
-//@Import(JdbcTemplateV1Config.class)
-//@Import(JdbcTemplateV2Config.class)
-//@Import(JdbcTemplateV3Config.class)
-//@Import(MyBatisConfig.class)
-//@Import(JpaConfig.class)
-//@Import(SpringDataJpaConfig.class)
-//@Import(QuerydslConfig.class)
-@Import(V2Config.class)
+@Import(JdbcTemplateV3Config.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web")
 public class ItemServiceApplication {
 
@@ -36,20 +28,18 @@ public class ItemServiceApplication {
         return new TestDataInit(itemRepository);
     }
 
-	/*
-	@Bean
-	@Profile("test")
-	public DataSource dataSource() {  // @Import 중복되면 인식 안되네.
-		log.info("메모리 데이터베이스 초기화");
+    @Bean
+    @Profile("test")
+    public DataSource dataSource() {
+        log.info("메모리 데이터베이스 초기화");
 
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("org.h2.Driver"); // DriverManager 로 h2 Driver 지정.
-		dataSource.setUrl("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1"); // 메모리 모드로.
-		dataSource.setUsername("sa");
-		dataSource.setPassword("");
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("org.h2.Driver"); // DriverManager 로 h2 Driver 지정.
+        dataSource.setUrl("jdbc:h2:mem:db;DB_CLOSE_DELAY=-1"); // 메모리 모드로.
+        dataSource.setUsername("sa");
+        dataSource.setPassword("");
 
-		return dataSource;
-	}
-	 */
+        return dataSource;
+    }
 
 }
