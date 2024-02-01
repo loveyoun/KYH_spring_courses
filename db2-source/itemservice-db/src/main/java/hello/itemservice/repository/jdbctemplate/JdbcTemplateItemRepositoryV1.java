@@ -120,6 +120,6 @@ public class JdbcTemplateItemRepositoryV1 implements ItemRepository {
 
             return item;
         });
-    }
+    } // 메서드가 아닌, 변수로 뽑아 쓸 수도 있다.
 
 }

@@ -7,7 +7,6 @@ import hello.itemservice.repository.ItemUpdateDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,21 +17,21 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 /**
  * NamedParameterJdbcTemplate
+ * 순서가 아니라, 이름 기반 parameter binding
+ * <p>
  * SqlParameterSource
  * - BeanPropertySqlParameterSource
  * - MapSqlParameterSource
  * Map
- *
+ * <p>
  * BeanPropertyRowMapper
- *
  */
 @Slf4j
 public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
@@ -42,6 +41,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
     public JdbcTemplateItemRepositoryV2(DataSource dataSource) {
         this.template = new NamedParameterJdbcTemplate(dataSource);
     }
+
 
     @Override
     public Item save(Item item) {
@@ -55,6 +55,7 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
 
         long key = keyHolder.getKey().longValue();
         item.setId(key);
+
         return item;
     }
 
@@ -64,11 +65,11 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
                 "set item_name=:itemName, price=:price, quantity=:quantity " +
                 "where id=:id";
 
-        SqlParameterSource param = new MapSqlParameterSource()
+        SqlParameterSource param = new MapSqlParameterSource() // new LinkedHashMap();
                 .addValue("itemName", updateParam.getItemName())
                 .addValue("price", updateParam.getPrice())
                 .addValue("quantity", updateParam.getQuantity())
-                .addValue("id", itemId); //이 부분이 별도로 필요하다.
+                .addValue("id", itemId); // 이 부분이 별도로 필요하다.
 
         template.update(sql, param);
     }
@@ -78,7 +79,10 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
         String sql = "select id, item_name, price, quantity from item where id = :id";
         try {
             Map<String, Object> param = Map.of("id", id);
+//            HashMap<String, Object> param2 = new HashMap<>("id", id);
+
             Item item = template.queryForObject(sql, param, itemRowMapper());
+
             return Optional.of(item);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
@@ -112,10 +116,14 @@ public class JdbcTemplateItemRepositoryV2 implements ItemRepository {
         }
 
         log.info("sql={}", sql);
+
         return template.query(sql, param, itemRowMapper());
     }
 
     private RowMapper<Item> itemRowMapper() {
-        return BeanPropertyRowMapper.newInstance(Item.class); //camel 변환 지원
+        return BeanPropertyRowMapper.newInstance(Item.class);
+        // rs 가지고 멤버 변수로 다 넣어준다.
+        // camel 변환 지원
     }
+
 }

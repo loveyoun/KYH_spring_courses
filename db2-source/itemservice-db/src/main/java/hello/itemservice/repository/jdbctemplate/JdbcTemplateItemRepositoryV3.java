@@ -13,8 +13,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
@@ -37,13 +35,17 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
                 .withTableName("item")
                 .usingGeneratedKeyColumns("id");
 //                .usingColumns("item_name", "price", "quantity"); //생략 가능
+        // metadata 를 db 에서 읽어서 필드 다 인지.
     }
+
 
     @Override
     public Item save(Item item) {
         SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-        Number key = jdbcInsert.executeAndReturnKey(param);
+
+        Number key = jdbcInsert.executeAndReturnKey(param); // 냅다 update() 호출.
         item.setId(key.longValue());
+
         return item;
     }
 
@@ -67,7 +69,9 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         String sql = "select id, item_name, price, quantity from item where id = :id";
         try {
             Map<String, Object> param = Map.of("id", id);
+
             Item item = template.queryForObject(sql, param, itemRowMapper());
+
             return Optional.of(item);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
@@ -101,10 +105,12 @@ public class JdbcTemplateItemRepositoryV3 implements ItemRepository {
         }
 
         log.info("sql={}", sql);
+
         return template.query(sql, param, itemRowMapper());
     }
 
     private RowMapper<Item> itemRowMapper() {
         return BeanPropertyRowMapper.newInstance(Item.class); //camel 변환 지원
     }
+
 }

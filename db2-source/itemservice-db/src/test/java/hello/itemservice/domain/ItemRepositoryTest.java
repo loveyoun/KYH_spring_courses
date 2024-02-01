@@ -26,18 +26,19 @@ class ItemRepositoryTest {
     @Autowired
     ItemRepository itemRepository;
 
-
     /*
+    // 트랜잭션 적용 == @Transactional
     @Autowired
     PlatformTransactionManager transactionManager;
     TransactionStatus status;
+
 
     @BeforeEach
     void beforeEach() {
         // 트랜잭션 시작
         status = transactionManager.getTransaction(new DefaultTransactionDefinition());
     }
-    */
+     */
 
     @AfterEach
     void afterEach() {
@@ -52,6 +53,9 @@ class ItemRepositoryTest {
 
 
     @Test
+//    @Commit
+//    @Rollback(false) // 강제 커밋
+//    @Transactional
     void save() {
         //given
         Item item = new Item("itemA", 10000, 10);

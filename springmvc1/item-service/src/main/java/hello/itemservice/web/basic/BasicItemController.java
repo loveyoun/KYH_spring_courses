@@ -152,6 +152,5 @@ public class BasicItemController {
         itemRepository.save(new Item("itemB", 20000, 20));
     }
 
-
 }
 

@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Configuration;
 public class MyBatisConfig {
 
     private final ItemMapper itemMapper;
+    // Mybatis module 이 DataSource 나 TransactionManager 읽어서
+    // 연결시켜준다.
+
 
     @Bean
     public ItemService itemService() {

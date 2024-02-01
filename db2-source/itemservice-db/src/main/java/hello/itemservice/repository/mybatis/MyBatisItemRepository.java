@@ -18,10 +18,13 @@ public class MyBatisItemRepository implements ItemRepository {
 
     private final ItemMapper itemMapper;
 
+
     @Override
     public Item save(Item item) {
         log.info("itemMapper class={}", itemMapper.getClass());
+
         itemMapper.save(item);
+
         return item;
     }
 
@@ -39,4 +42,5 @@ public class MyBatisItemRepository implements ItemRepository {
     public List<Item> findAll(ItemSearchCond cond) {
         return itemMapper.findAll(cond);
     }
+
 }
