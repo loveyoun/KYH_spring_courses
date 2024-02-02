@@ -16,19 +16,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@Repository
-@Transactional
+@Repository // 스프링 예외 추상화로 변환.
+@Transactional // Repository 에 proxy 적용하네.
 public class JpaItemRepository implements ItemRepository {
 
     private final EntityManager em;
+    // 이게 JPA. JDBC API 내부에서 사용.
 
     public JpaItemRepository(EntityManager em) {
         this.em = em;
     }
 
+
     @Override
     public Item save(Item item) {
         em.persist(item);
+
         return item;
     }
 
@@ -43,12 +46,18 @@ public class JpaItemRepository implements ItemRepository {
     @Override
     public Optional<Item> findById(Long id) {
         Item item = em.find(Item.class, id);
+
         return Optional.ofNullable(item);
     }
 
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
-        String jpql = "selectxxx i from Item i";
+        String jpql = "select i from Item i";
+        // i: entity 타입 자체
+        // i -> item.id, itemName, ... 으로 변환됨.
+
+//        List<Item> resultList = em.createQuery(jpql, Item.class).getResultList();
+        // 매핑 다 해주고
 
         Integer maxPrice = cond.getMaxPrice();
         String itemName = cond.getItemName();
@@ -82,6 +91,8 @@ public class JpaItemRepository implements ItemRepository {
         if (maxPrice != null) {
             query.setParameter("maxPrice", maxPrice);
         }
+
         return query.getResultList();
     }
+
 }

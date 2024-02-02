@@ -21,6 +21,7 @@ public class JpaConfig {
         this.em = em;
     }
 
+
     @Bean
     public ItemService itemService() {
         return new ItemServiceV1(itemRepository());

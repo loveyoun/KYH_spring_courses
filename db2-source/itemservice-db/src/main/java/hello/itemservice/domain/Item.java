@@ -5,7 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Data
-@Entity
+@Entity // JPA 에서 관리하는 객체(엔티티) 로 인식됨.
+@Table(name = "item")
 public class Item {
 
     @Id
