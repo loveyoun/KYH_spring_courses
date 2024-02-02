@@ -1,11 +1,11 @@
-package hello.external;
+package hello;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Properties;
 
 @Slf4j
-public class JavaSystemProperties {
+public class JavaSystem {
 
     public static void main(String[] args) {
         Properties properties = System.getProperties();

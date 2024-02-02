@@ -26,6 +26,7 @@ public class ImportSelectorTest {
         assertThat(bean).isNotNull();
     }
 
+
     @Configuration
     @Import(HelloConfig.class)
     public static class StaticConfig {
