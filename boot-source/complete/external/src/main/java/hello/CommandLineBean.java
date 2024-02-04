@@ -18,13 +18,16 @@ public class CommandLineBean {
         this.arguments = arguments;
     }
 
+
     @PostConstruct
     public void init() {
         log.info("source {}", List.of(arguments.getSourceArgs()));
         log.info("optionNames {}", arguments.getOptionNames());
+
         Set<String> optionNames = arguments.getOptionNames();
         for (String optionName : optionNames) {
             log.info("option args {}={}", optionName, arguments.getOptionValues(optionName));
         }
     }
+
 }

@@ -7,7 +7,9 @@ import java.util.Properties;
 @Slf4j
 public class JavaSystem {
 
-    public static void main(String[] args) {
+    public static void print(String[] args) {
+        System.setProperty("memory", "on");
+
         Properties properties = System.getProperties();
         for (Object key : properties.keySet()) {
             log.info("prop {}={}", key, System.getProperty(String.valueOf(key)));

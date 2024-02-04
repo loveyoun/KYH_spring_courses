@@ -34,6 +34,6 @@ public class CommandLineV2 {
         log.info("username={}", username);
         log.info("password={}", password);
         log.info("mode={}", mode);
-
     }
+
 }

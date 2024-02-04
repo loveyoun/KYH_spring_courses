@@ -29,6 +29,15 @@ dependencies {
     testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
+/*
+tasks.named("bootJar") {
+    // Spring Boot Application 시작점
+    manifest {
+        attributes["Start-Class"] = "hello.JavaSystem"
+    }
+}
+*/
+
 tasks.named('test') {
     useJUnitPlatform()
 }
