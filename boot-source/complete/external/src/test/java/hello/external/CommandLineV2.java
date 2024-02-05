@@ -17,7 +17,12 @@ public class CommandLineV2 {
         }
 
         ApplicationArguments appArgs = new DefaultApplicationArguments(args);
+        // (new SimpleCommandLineArgsParser()).parse(args)
+
+//        log.info("SourceArgs = {} {} {} {} {}", appArgs.getSourceArgs());
         log.info("SourceArgs = {}", List.of(appArgs.getSourceArgs()));
+        // 참조값 -> 값 : x
+
         log.info("NonOptionsArgs = {}", appArgs.getNonOptionArgs());
         log.info("OptionsNames = {}", appArgs.getOptionNames());
 

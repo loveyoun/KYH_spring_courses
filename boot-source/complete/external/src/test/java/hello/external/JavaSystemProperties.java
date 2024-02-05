@@ -9,13 +9,14 @@ public class JavaSystemProperties {
 
     public static void main(String[] args) {
         System.setProperty("memory", "on");
+        // Edit Custom VM Options xx.
 
         Properties properties = System.getProperties();
         for (Object key : properties.keySet()) {
             log.info("prop {}={}", key, System.getProperty(String.valueOf(key)));
         }
 
-        // -Dxxx 삽입.
+        // -Dxxx 삽입. Edit Configurations -> Modify Options
         String url = System.getProperty("url");
         String username = System.getProperty("username");
         String password = System.getProperty("password");

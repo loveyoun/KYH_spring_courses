@@ -19,6 +19,7 @@ public class JpaItemRepositoryV2 implements ItemRepository {
 
     private final SpringDataJpaItemRepository repository;
 
+
     @Override
     public Item save(Item item) {
         return repository.save(item);
@@ -53,4 +54,5 @@ public class JpaItemRepositoryV2 implements ItemRepository {
             return repository.findAll();
         }
     }
+
 }

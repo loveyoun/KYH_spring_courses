@@ -15,6 +15,7 @@ public class SpringDataJpaConfig {
 
     private final SpringDataJpaItemRepository springDataJpaItemRepository;
 
+
     @Bean
     public ItemService itemService() {
         return new ItemServiceV1(itemRepository());

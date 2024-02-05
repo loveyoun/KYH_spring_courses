@@ -15,6 +15,7 @@ public class EnvironmentCheck {
         this.env = env;
     }
 
+
     @PostConstruct
     public void init() {
         String url = env.getProperty("url");
@@ -24,4 +25,5 @@ public class EnvironmentCheck {
         log.info("env username url={}", username);
         log.info("env password url={}", password);
     }
+    
 }

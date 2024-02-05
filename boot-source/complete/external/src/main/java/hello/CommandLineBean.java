@@ -17,6 +17,7 @@ public class CommandLineBean {
     public CommandLineBean(ApplicationArguments arguments) {
         this.arguments = arguments;
     }
+    // 스프링 부트가 구현체 만들어서 주입해준다.
 
 
     @PostConstruct
