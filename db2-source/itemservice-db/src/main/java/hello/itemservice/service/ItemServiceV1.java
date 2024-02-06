@@ -16,7 +16,7 @@ import java.util.Optional;
 public class ItemServiceV1 implements ItemService {
 
     private final ItemRepository itemRepository; // 로 거의 다 위임.
-//    private final SpringDataJpaItemRepository springDataJpaItemRepository;
+//    private final SpringDataJpaItemRepository springDataJpaItemRepository; // 단순위임
 
 
     @Override

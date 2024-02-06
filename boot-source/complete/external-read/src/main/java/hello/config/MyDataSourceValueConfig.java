@@ -19,12 +19,13 @@ public class MyDataSourceValueConfig {
     private String username;
     @Value("${my.datasource.password}")
     private String password;
-    @Value("${my.datasource.etc.max-connection}")
+    @Value("${my.datasource.etc.max-connection:2}")
     private int maxConnection;
     @Value("${my.datasource.etc.timeout}")
     private Duration timeout;
     @Value("${my.datasource.etc.options}")
     private List<String> options;
+
 
     @Bean
     public MyDataSource myDataSource1() {
@@ -36,7 +37,7 @@ public class MyDataSourceValueConfig {
             @Value("${my.datasource.url}") String url,
             @Value("${my.datasource.username}") String username,
             @Value("${my.datasource.password}") String password,
-            @Value("${my.datasource.etc.max-connection}") int maxConnection,
+            @Value("${my.datasource.etc.max-connection:2}") int maxConnection,
             @Value("${my.datasource.etc.timeout}") Duration timeout,
             @Value("${my.datasource.etc.options}") List<String> options) {
 

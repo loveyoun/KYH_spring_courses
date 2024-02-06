@@ -22,6 +22,7 @@ public class V2Config {
     private final EntityManager em;
     private final ItemRepositoryV2 itemRepositoryV2; //SpringDataJPA
 
+
     @Bean
     public ItemService itemService() {
         return new ItemServiceV2(itemRepositoryV2, itemQueryRepositoryV2());
@@ -32,6 +33,7 @@ public class V2Config {
         return new ItemQueryRepositoryV2(em);
     }
 
+    // TestDataInit.class 에서 save().
     @Bean
     public ItemRepository itemRepository() {
         return new JpaItemRepositoryV3(em);

@@ -16,6 +16,7 @@ public class MyDataSourceConfigV2 {
         this.properties = properties;
     }
 
+
     @Bean
     public MyDataSource dataSource() {
         return new MyDataSource(
@@ -26,4 +27,5 @@ public class MyDataSourceConfigV2 {
                 properties.getEtc().getTimeout(),
                 properties.getEtc().getOptions());
     }
+
 }

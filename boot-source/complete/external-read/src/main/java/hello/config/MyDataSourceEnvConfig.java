@@ -19,6 +19,7 @@ public class MyDataSourceEnvConfig {
         this.env = env;
     }
 
+
     @Bean
     public MyDataSource myDataSource() {
         String url = env.getProperty("my.datasource.url");
@@ -30,4 +31,5 @@ public class MyDataSourceEnvConfig {
 
         return new MyDataSource(url, username, password, maxConnection, timeout, options);
     }
+
 }

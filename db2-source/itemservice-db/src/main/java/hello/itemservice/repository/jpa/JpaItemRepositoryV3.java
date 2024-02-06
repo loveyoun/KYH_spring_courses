@@ -29,11 +29,15 @@ public class JpaItemRepositoryV3 implements ItemRepository {
     public JpaItemRepositoryV3(EntityManager em) {
         this.em = em;
         this.query = new JPAQueryFactory(em);
+        // == new JdbcTemplate(dataSource);
     }
 
+
+    // 간단한 건 그냥 JPA 사용.
     @Override
     public Item save(Item item) {
         em.persist(item);
+
         return item;
     }
 
@@ -48,15 +52,19 @@ public class JpaItemRepositoryV3 implements ItemRepository {
     @Override
     public Optional<Item> findById(Long id) {
         Item item = em.find(Item.class, id);
+
         return Optional.ofNullable(item);
     }
 
     public List<Item> findAllOld(ItemSearchCond cond) {
-
         String itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
 
+//        QItem item = new QItem("i"); // alias
         QItem item = QItem.item;
+        // static member: static import 가능.
+        // -> item
+
         BooleanBuilder builder = new BooleanBuilder();
         if (StringUtils.hasText(itemName)) {
             builder.and(item.itemName.like("%" + itemName + "%"));
@@ -76,7 +84,6 @@ public class JpaItemRepositoryV3 implements ItemRepository {
 
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
-
         String itemName = cond.getItemName();
         Integer maxPrice = cond.getMaxPrice();
 
@@ -85,6 +92,9 @@ public class JpaItemRepositoryV3 implements ItemRepository {
                 .from(item)
                 .where(likeItemName(itemName), maxPrice(maxPrice))
                 .fetch();
+        // item.itemName.like("%" + itemName + "%").and(item.price.loe(maxPrice))
+        // 동적쿼리니까 조건에 따라 다른 값.
+        // null 이면 where 문 무시된다.
     }
 
     private BooleanExpression likeItemName(String itemName) {
@@ -100,4 +110,5 @@ public class JpaItemRepositoryV3 implements ItemRepository {
         }
         return null;
     }
+
 }

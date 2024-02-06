@@ -16,6 +16,7 @@ public class MyDataSourcePropertiesV1 {
     private String password;
     private Etc etc;
 
+
     @Data
     public static class Etc {
         private int maxConnection;

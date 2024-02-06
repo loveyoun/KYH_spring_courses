@@ -13,6 +13,7 @@ public class PayConfig {
     @Profile("default")
     public LocalPayClient localPayClient() {
         log.info("LocalPayClient 빈 등록");
+
         return new LocalPayClient();
     }
 
@@ -20,6 +21,8 @@ public class PayConfig {
     @Profile("prod")
     public ProdPayClient prodPayClient() {
         log.info("ProdPayClient 빈 등록");
+
         return new ProdPayClient();
     }
+
 }

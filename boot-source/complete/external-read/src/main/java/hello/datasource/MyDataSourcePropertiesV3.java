@@ -33,6 +33,7 @@ public class MyDataSourcePropertiesV3 {
         this.etc = etc;
     }
 
+
     @Getter
     public static class Etc {
         @Min(1)

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 
 @Slf4j
 @EnableConfigurationProperties(MyDataSourcePropertiesV1.class)
+// 속성 값을 다 읽어서 넣은 다음에 스프링빈으로 등록.
+// -> @ConfigurationPropertiesScan
 public class MyDataSourceConfigV1 {
 
     private final MyDataSourcePropertiesV1 properties;
@@ -15,6 +17,7 @@ public class MyDataSourceConfigV1 {
     public MyDataSourceConfigV1(MyDataSourcePropertiesV1 properties) {
         this.properties = properties;
     }
+
 
     @Bean
     public MyDataSource dataSource() {
@@ -26,4 +29,5 @@ public class MyDataSourceConfigV1 {
                 properties.getEtc().getTimeout(),
                 properties.getEtc().getOptions());
     }
+
 }

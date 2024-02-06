@@ -22,13 +22,12 @@ public class ItemQueryRepositoryV2 {
         this.query = new JPAQueryFactory(em);
     }
 
+
     public List<Item> findAll(ItemSearchCond cond) {
         return query.select(item)
                 .from(item)
-                .where(
-                        likeItemName(cond.getItemName()),
-                        maxPrice(cond.getMaxPrice())
-                )
+                .where(likeItemName(cond.getItemName()),
+                        maxPrice(cond.getMaxPrice()))
                 .fetch();
     }
 

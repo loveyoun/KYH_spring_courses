@@ -24,8 +24,9 @@ public class MyDataSourcePropertiesV2 {
         this.username = username;
         this.password = password;
         this.etc = etc;
-    }
+    }  // 추가
 
+    
     @Getter
     public static class Etc {
         private int maxConnection;

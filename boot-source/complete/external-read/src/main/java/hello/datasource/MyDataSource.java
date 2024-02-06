@@ -12,7 +12,7 @@ public class MyDataSource {
     private String url;
     private String username;
     private String password;
-    private int maxConnection;
+    private int maxConnection; // 커넥션 풀링
     private Duration timeout;
     private List<String> options;
 
@@ -25,6 +25,7 @@ public class MyDataSource {
         this.options = options;
     }
 
+
     @PostConstruct
     public void init() {
         log.info("url={}", url);
@@ -34,4 +35,5 @@ public class MyDataSource {
         log.info("timeout={}", timeout);
         log.info("options={}", options);
     }
+
 }
