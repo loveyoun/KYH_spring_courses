@@ -15,10 +15,12 @@ public class OrderController {
         this.orderService = orderService;
     }
 
+
     @GetMapping("/order")
     public String order() {
         log.info("order");
         orderService.order();
+
         return "order";
     }
 
@@ -26,12 +28,15 @@ public class OrderController {
     public String cancel() {
         log.info("cancel");
         orderService.cancel();
+
         return "cancel";
     }
 
     @GetMapping("/stock")
     public int stock() {
         log.info("stock");
+
         return orderService.getStock().get();
     }
+
 }

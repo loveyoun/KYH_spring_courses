@@ -16,19 +16,26 @@ import javax.annotation.PostConstruct;
 @SpringBootTest
 public class InitTxTest {
 
-    @Autowired Hello hello;
+    @Autowired
+    Hello hello;
+
 
     @Test
     void go() {
         //초기화 코드는 스프링이 초기화 시점에 호출한다.
+
+        hello.initV1();
     }
+
 
     @TestConfiguration
     static class InitTxTestConfig {
+
         @Bean
         Hello hello() {
             return new Hello();
         }
+
     }
 
     @Slf4j
@@ -47,5 +54,7 @@ public class InitTxTest {
             boolean isActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("Hello init ApplicationReadyEvent tx active={}", isActive);
         }
+
     }
+
 }

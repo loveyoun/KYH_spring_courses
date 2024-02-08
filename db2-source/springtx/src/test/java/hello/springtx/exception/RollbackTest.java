@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class RollbackTest {
-
-    @Autowired RollbackService service;
+    @Autowired
+    RollbackService service;
 
     @Test
     void runtimeException() {
@@ -42,7 +42,6 @@ public class RollbackTest {
 
     @Slf4j
     static class RollbackService {
-
         //런타임 예외 발생: 롤백
         @Transactional
         public void runtimeException() {

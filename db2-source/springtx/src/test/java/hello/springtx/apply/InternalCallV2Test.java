@@ -17,6 +17,7 @@ public class InternalCallV2Test {
     @Autowired
     CallService callService;
 
+
     @Test
     void printProxy() {
         log.info("callService class={}", callService.getClass());
@@ -26,6 +27,7 @@ public class InternalCallV2Test {
     void externalCallV2() {
         callService.external();
     }
+
 
     @TestConfiguration
     static class InternalCallV1TestConfig {
@@ -48,9 +50,11 @@ public class InternalCallV2Test {
 
         private final InternalService internalService;
 
+
         public void external() {
             log.info("call external");
             printTxInfo();
+
             internalService.internal();
         }
 
@@ -58,6 +62,7 @@ public class InternalCallV2Test {
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("tx active={}", txActive);
         }
+
     }
 
     static class InternalService {
@@ -72,5 +77,7 @@ public class InternalCallV2Test {
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("tx active={}", txActive);
         }
+
     }
+
 }

@@ -15,6 +15,8 @@ public class LogController {
         log.info("info log");
         log.warn("warn log");
         log.error("error log");
+
         return "ok";
     }
+
 }

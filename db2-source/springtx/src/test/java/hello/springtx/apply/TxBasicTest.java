@@ -14,14 +14,19 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
-@SpringBootTest
+@SpringBootTest // AOP 동작.
 public class TxBasicTest {
 
-    @Autowired BasicService basicService;
+    @Autowired
+    BasicService basicService;
 
+    
     @Test
     void proxyCheck() {
-        log.info("aop class={}", basicService.getClass());
+        log.info("aop class={}", basicService.getClass()); // Proxy 적용 체크
+        // $BasicService$$EnhancerBySpringCGLIB$$~
+        // 스프링 AOP Proxy 적용해서 만든 객체.
+
         assertThat(AopUtils.isAopProxy(basicService)).isTrue();
     }
 
@@ -31,12 +36,15 @@ public class TxBasicTest {
         basicService.nonTx();
     }
 
+
     @TestConfiguration
     static class TxApplyBasicConfig {
+
         @Bean
         BasicService basicService() {
             return new BasicService();
         }
+
     }
 
     @Slf4j
@@ -54,5 +62,7 @@ public class TxBasicTest {
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("tx active={}", txActive);
         }
+
     }
+
 }

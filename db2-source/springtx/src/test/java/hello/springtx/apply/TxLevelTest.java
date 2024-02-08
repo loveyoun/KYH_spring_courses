@@ -12,7 +12,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 @SpringBootTest
 public class TxLevelTest {
 
-    @Autowired LevelService service;
+    @Autowired
+    LevelService service;
+
 
     @Test
     void orderTest() {
@@ -20,12 +22,15 @@ public class TxLevelTest {
         service.read();
     }
 
+
     @TestConfiguration
     static class TxLevelTestConfig {
+
         @Bean
         LevelService levelService() {
             return new LevelService();
         }
+
     }
 
     @Slf4j
@@ -49,5 +54,7 @@ public class TxLevelTest {
             boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
             log.info("tx readOnly={}", readOnly);
         }
+
     }
+
 }

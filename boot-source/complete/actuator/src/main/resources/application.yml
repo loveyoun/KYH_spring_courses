@@ -6,6 +6,8 @@ management:
       enabled: true
     env:
       enabled: true
+    git:
+      mode: "full"
   server:
     port: 8080
   endpoint:
@@ -24,6 +26,7 @@ info:
     name: hello-actuator
     company: yh
 
+#Boot serves. Actuator 무관.
 logging:
   level:
     hello.controller: debug
