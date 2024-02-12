@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ public class BasicController {
     @GetMapping("text-basic")
     public String textBasic(Model model) {
         model.addAttribute("data", "Hello <b>Spring!</b>");
+
         return "basic/text-basic";
     }
 
     @GetMapping("text-unescaped")
     public String textUnescaped(Model model) {
         model.addAttribute("data", "Hello <b>Spring!</b>");
+
         return "basic/text-unescaped";
     }
 
@@ -51,10 +54,27 @@ public class BasicController {
         return "basic/variable";
     }
 
+    /**
+     * Deprecated from Boot 3.0
+     */
     @GetMapping("/basic-objects")
     public String basicObjects(HttpSession session) {
         session.setAttribute("sessionData", "Hello Session");
+
         return "basic/basic-objects";
+    }
+
+    @GetMapping("/basic-objects-3")
+    public String basicObjects3(Model model,
+                                HttpServletRequest request,
+                                HttpServletResponse response,
+                                HttpSession session) {
+        session.setAttribute("sessionData", "Hello Session");
+        model.addAttribute("request", request);
+        model.addAttribute("response", response);
+        model.addAttribute("servletContext", request.getServletContext());
+
+        return "basic/basic-objects-3";
     }
 
     @Component("helloBean")
@@ -67,6 +87,7 @@ public class BasicController {
     @GetMapping("/date")
     public String date(Model model) {
         model.addAttribute("localDateTime", LocalDateTime.now());
+
         return "basic/date";
     }
 
@@ -74,13 +95,14 @@ public class BasicController {
     public String link(Model model) {
         model.addAttribute("param1", "data1");
         model.addAttribute("param2", "data2");
-        return "basic/link";
 
+        return "basic/link";
     }
 
     @GetMapping("/literal")
     public String literal(Model model) {
         model.addAttribute("data", "Spring!");
+
         return "basic/literal";
     }
 
@@ -88,6 +110,7 @@ public class BasicController {
     public String operation(Model model) {
         model.addAttribute("nullData", null);
         model.addAttribute("data", "Spring!");
+
         return "basic/operation";
     }
 
@@ -99,36 +122,38 @@ public class BasicController {
     @GetMapping("/each")
     public String each(Model model) {
         addUsers(model);
+
         return "basic/each";
     }
 
     @GetMapping("/condition")
     public String condition(Model model) {
         addUsers(model);
+
         return "basic/condition";
     }
 
     @GetMapping("/comments")
     public String comments(Model model) {
         model.addAttribute("data", "Spring!");
+
         return "basic/comments";
     }
 
     @GetMapping("/block")
     public String block(Model model) {
         addUsers(model);
+
         return "basic/block";
     }
 
     @GetMapping("/javascript")
     public String javascript(Model model) {
-
         model.addAttribute("user", new User("UserA", 10));
         addUsers(model);
 
         return "basic/javascript";
     }
-
 
     private void addUsers(Model model) {
         List<User> list = new ArrayList<>();
@@ -149,4 +174,5 @@ public class BasicController {
             this.age = age;
         }
     }
+
 }

@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.*;
 public class BasicTxTest {
 
     @Autowired
-    PlatformTransactionManager txManager;
+    PlatformTransactionManager txManager; // Data(Jdbc)SourceTransactionManager
 
     @TestConfiguration
     static class Config {
@@ -84,16 +84,12 @@ public class BasicTxTest {
         log.info("외부 트랜잭션 시작");
         TransactionStatus outer = txManager.getTransaction(new DefaultTransactionAttribute());
         log.info("outer.isNewTransaction()={}", outer.isNewTransaction());
+        log.info("outer={}", outer); //DefaultTransactionStatus@571c2ed8
 
-        log.info("내부 트랜잭션 시작");
-        TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
-        log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
-        log.info("내부 트랜잭션 커밋");
-        txManager.commit(inner);
+        inner();
 
         log.info("외부 트랜잭션 커밋");
         txManager.commit(outer);
-
     }
 
     @Test
@@ -101,13 +97,20 @@ public class BasicTxTest {
         log.info("외부 트랜잭션 시작");
         TransactionStatus outer = txManager.getTransaction(new DefaultTransactionAttribute());
 
-        log.info("내부 트랜잭션 시작");
-        TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
-        log.info("내부 트랜잭션 커밋");
-        txManager.commit(inner);
+        inner();
 
         log.info("외부 트랜잭션 롤백");
         txManager.rollback(outer);
+    }
+
+    private void inner() {
+        log.info("내부 트랜잭션 시작");
+        TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
+        log.info("inner.isNewTransaction()={}", inner.isNewTransaction());
+        log.info("inner={}", inner); //DefaultTransactionStatus@5810772a
+
+        log.info("내부 트랜잭션 커밋");
+        txManager.commit(inner);
     }
 
     @Test
@@ -118,7 +121,7 @@ public class BasicTxTest {
         log.info("내부 트랜잭션 시작");
         TransactionStatus inner = txManager.getTransaction(new DefaultTransactionAttribute());
         log.info("내부 트랜잭션 롤백");
-        txManager.rollback(inner); //rollback-only 표시
+        txManager.rollback(inner); // rollback-only mark(표시)
 
         log.info("외부 트랜잭션 커밋");
         assertThatThrownBy(() -> txManager.commit(outer))
@@ -143,9 +146,5 @@ public class BasicTxTest {
         log.info("외부 트랜잭션 커밋");
         txManager.commit(outer); //커밋
     }
-
-
-
-
 
 }

@@ -15,8 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class OrderServiceTest {
 
-    @Autowired OrderService orderService;
-    @Autowired OrderRepository orderRepository;
+    @Autowired
+    OrderService orderService;
+    @Autowired
+    OrderRepository orderRepository;
 
     @Test
     void complete() throws NotEnoughMoneyException {
@@ -54,6 +56,7 @@ class OrderServiceTest {
         order.setUsername("잔고부족");
 
         //when
+        // 클라이언트 코드: 앞단 서비스나 컨트롤러
         try {
             orderService.order(order);
         } catch (NotEnoughMoneyException e) {
@@ -64,4 +67,5 @@ class OrderServiceTest {
         Order findOrder = orderRepository.findById(order.getId()).get();
         assertThat(findOrder.getPayStatus()).isEqualTo("대기");
     }
+
 }

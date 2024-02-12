@@ -22,16 +22,18 @@ public class OrderService {
         if (order.getUsername().equals("예외")) {
             log.info("시스템 예외 발생");
             throw new RuntimeException("시스템 예외");
-
+            // save 롤백
         } else if (order.getUsername().equals("잔고부족")) {
             log.info("잔고 부족 비즈니스 예외 발생");
-            order.setPayStatus("대기");
+            order.setPayStatus("대기");  // 커밋
             throw new NotEnoughMoneyException("잔고가 부족합니다");
-        } else {
-            //정상 승인
+        } else { //정상 승인
             log.info("정상 승인");
             order.setPayStatus("완료");
         }
+
         log.info("결제 프로세스 완료");
+        // JPA는 트랜잭션 커밋 시점에 query 를 날린다: 진짜 커밋
     }
+
 }
