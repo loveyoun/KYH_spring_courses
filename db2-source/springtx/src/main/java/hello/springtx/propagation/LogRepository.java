@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
 @Slf4j
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class LogRepository {
 
+    //    @PersistenceContext // 이제 알아서 주입
     private final EntityManager em;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -25,7 +27,6 @@ public class LogRepository {
             log.info("log 저장시 예외 발생");
             throw new RuntimeException("예외 발생");
         }
-
     }
 
     public Optional<Log> find(String message) {
@@ -33,6 +34,5 @@ public class LogRepository {
                 .setParameter("message", message)
                 .getResultList().stream().findAny();
     }
-
 
 }

@@ -57,7 +57,6 @@ class MemberServiceTest {
         assertTrue(logRepository.find(username).isEmpty());
     }
 
-
     /**
      * memberService    @Transactional:ON
      * memberRepository @Transactional:OFF

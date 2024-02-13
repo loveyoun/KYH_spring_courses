@@ -20,11 +20,11 @@ public class MemberService {
         Log logMessage = new Log(username);
 
         log.info("== memberRepository 호출 시작 ==");
-        memberRepository.save(member);
+        memberRepository.save(member); //@Transactional
         log.info("== memberRepository 호출 종료 ==");
 
         log.info("== logRepository 호출 시작 ==");
-        logRepository.save(logMessage);
+        logRepository.save(logMessage); //@Transactional
         log.info("== logRepository 호출 종료 ==");
     }
 

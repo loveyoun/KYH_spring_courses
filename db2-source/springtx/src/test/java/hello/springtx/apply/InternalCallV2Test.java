@@ -17,7 +17,6 @@ public class InternalCallV2Test {
     @Autowired
     CallService callService;
 
-
     @Test
     void printProxy() {
         log.info("callService class={}", callService.getClass());
@@ -28,10 +27,8 @@ public class InternalCallV2Test {
         callService.external();
     }
 
-
     @TestConfiguration
     static class InternalCallV1TestConfig {
-
         @Bean
         CallService callService() {
             return new CallService(internalService());
@@ -41,15 +38,12 @@ public class InternalCallV2Test {
         InternalService internalService() {
             return new InternalService();
         }
-
     }
 
     @Slf4j
     @RequiredArgsConstructor
     static class CallService {
-
         private final InternalService internalService;
-
 
         public void external() {
             log.info("call external");
@@ -62,11 +56,9 @@ public class InternalCallV2Test {
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("tx active={}", txActive);
         }
-
     }
 
     static class InternalService {
-
         @Transactional
         public void internal() {
             log.info("call internal");
@@ -77,7 +69,6 @@ public class InternalCallV2Test {
             boolean txActive = TransactionSynchronizationManager.isActualTransactionActive();
             log.info("tx active={}", txActive);
         }
-
     }
 
 }
