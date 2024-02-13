@@ -18,4 +18,5 @@ public class OrderConfigV2 {
     public CountedAspect countedAspect(MeterRegistry registry) {
         return new CountedAspect(registry);
     }
+
 }

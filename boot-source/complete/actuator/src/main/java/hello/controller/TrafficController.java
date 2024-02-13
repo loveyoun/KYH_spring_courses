@@ -13,7 +13,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-public class TrafficController {
+public class TrafficController { // 부하
 
     @GetMapping("cpu")
     public String cpu() {
@@ -22,10 +22,12 @@ public class TrafficController {
         for (long i = 0; i < 1000000000000L; i++) {
             value++;
         }
+
         return "ok value=" + value;
     }
 
     private List<String> list = new ArrayList<>();
+    // 싱글톤 스프링빈
 
     @GetMapping("/jvm")
     public String jvm() {
@@ -33,6 +35,7 @@ public class TrafficController {
         for (int i = 0; i < 1000000; i++) {
             list.add("hello jvm!" + i);
         }
+
         return "ok";
     }
 
@@ -45,6 +48,7 @@ public class TrafficController {
         Connection conn = dataSource.getConnection();
         log.info("connection info={}", conn);
         //conn.close(); //커넥션을 닫지 않는다.
+
         return "ok";
     }
 
@@ -53,4 +57,5 @@ public class TrafficController {
         log.error("error log");
         return "error";
     }
+
 }

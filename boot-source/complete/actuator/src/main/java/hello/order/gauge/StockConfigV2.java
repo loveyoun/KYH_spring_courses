@@ -16,6 +16,7 @@ public class StockConfigV2 {
         return registry -> Gauge.builder("my.stock", orderService, service -> {
             log.info("stock gauge call");
             return service.getStock().get();
-        }).register(registry);
+        }).register(registry); // MeterBinder 알아서 다 등록해준다.
     }
+
 }

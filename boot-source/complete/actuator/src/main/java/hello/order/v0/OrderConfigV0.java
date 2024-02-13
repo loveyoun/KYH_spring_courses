@@ -11,4 +11,5 @@ public class OrderConfigV0 {
     OrderService orderService() {
         return new OrderServiceV0();
     }
+
 }

@@ -60,4 +60,5 @@ public class OrderServiceV3 implements OrderService {
     public AtomicInteger getStock() {
         return stock;
     }
+
 }

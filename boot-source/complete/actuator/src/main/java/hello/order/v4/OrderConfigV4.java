@@ -19,4 +19,5 @@ public class OrderConfigV4 {
     public TimedAspect timedAspect(MeterRegistry registry) {
         return new TimedAspect(registry);
     }
+
 }

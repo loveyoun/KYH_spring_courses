@@ -12,4 +12,5 @@ public class OrderConfigV3 {
     OrderService orderService(MeterRegistry registry) {
         return new OrderServiceV3(registry);
     }
+
 }

@@ -15,8 +15,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-
-    @GetMapping("/order")
+    @GetMapping("/order") // 원래 POST
     public String order() {
         log.info("order");
         orderService.order();
@@ -36,7 +35,7 @@ public class OrderController {
     public int stock() {
         log.info("stock");
 
-        return orderService.getStock().get();
+        return orderService.getStock().get(); // int 로 꺼내기.
     }
 
 }

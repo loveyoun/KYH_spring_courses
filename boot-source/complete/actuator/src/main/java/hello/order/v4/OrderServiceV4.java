@@ -6,6 +6,8 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,6 +17,7 @@ public class OrderServiceV4 implements OrderService {
 
     private AtomicInteger stock = new AtomicInteger(100);
 
+//    @Timed // @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE, ElementType.METHOD})
     @Override
     public void order() {
         log.info("주문");
@@ -41,4 +44,5 @@ public class OrderServiceV4 implements OrderService {
     public AtomicInteger getStock() {
         return stock;
     }
+
 }

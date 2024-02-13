@@ -26,4 +26,5 @@ public class OrderServiceV0 implements OrderService {
     public AtomicInteger getStock() {
         return stock;
     }
+
 }

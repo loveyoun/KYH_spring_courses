@@ -26,12 +26,14 @@ public class StockConfigV1 {
             this.registry = registry;
         }
 
-        @PostConstruct
+        @PostConstruct // 스프링 빈으로 등록 => 초기화할 때 게이지 측정.
         public void init() {
-            Gauge.builder("my.stock", orderService, service -> {
+            Gauge.builder("my.stock", orderService,
+                    service -> {
                 log.info("stock gauge call");
                 return service.getStock().get();
             }).register(registry);
         }
     }
+
 }
